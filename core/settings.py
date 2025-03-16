@@ -187,11 +187,10 @@ CKEDITOR_CONFIGS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-#MEDIA_ROOT = '/Users/tienbui/python/visa/media/'
-# MEDIA_ROOT = "D:\\python\\xuatkhau\\media\\"
 
-# MEDIA_ROOT = "/xuatkhau/media/"
-
+if not DEBUG:  
+    MEDIA_URL = "/media/"  
+    MEDIA_ROOT = os.path.join(STATIC_ROOT, "media") 
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
