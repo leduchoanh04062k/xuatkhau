@@ -28,10 +28,10 @@ DEBUG = False
 # COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
-ALLOWED_HOSTS = ['xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['laodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
-SITE_URL = "https://xuatkhaulaodong.onrender.com"
-DOMAIN_NAME = "xuatkhaulaodong.onrender.com"
+SITE_URL = "https://laodong.onrender.com"
+DOMAIN_NAME = "laodong.onrender.com"
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # Application definition
 INTERNAL_IPS = ['127.0.0.1']
