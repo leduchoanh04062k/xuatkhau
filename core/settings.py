@@ -137,6 +137,12 @@ INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "dohcwmo3f",
+    "API_KEY": "512554783314115",
+    "API_SECRET": "7kyjNhG1z4JDtyhAdVJ37p55AHE",
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -191,7 +197,7 @@ CKEDITOR_CONFIGS = {
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/xuatkhau/media/'
+MEDIA_ROOT = '/var/media/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
