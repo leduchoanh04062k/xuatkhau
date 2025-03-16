@@ -27,7 +27,7 @@ DEBUG = True
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
-ALLOWED_HOSTS = ['https://xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
 SITE_URL = "http://localhost:8000"
 DOMAIN_NAME = "localhost:8000"
