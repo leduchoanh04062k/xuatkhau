@@ -162,9 +162,6 @@ tldextract==3.4.4
 tqdm==4.65.0
 trio==0.22.2
 trio-websocket==0.10.3
-twilio==9.4.6
-Twisted==22.10.0
-twisted-iocpsupport==1.0.4
 typing_extensions==4.12.2
 tzdata==2023.3
 ua-parser==0.18.0
