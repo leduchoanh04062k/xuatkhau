@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent  # Trỏ đến thư mục gốc
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'sorl.thumbnail',
-    # 'debug_toolbar',
+    # 'cloudinary',
     'smart_selects',
     'captcha',
     # 'compressor',
@@ -131,6 +132,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -187,10 +192,6 @@ CKEDITOR_CONFIGS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-if not DEBUG:  
-    MEDIA_URL = "/media/"  
-    MEDIA_ROOT = os.path.join(STATIC_ROOT, "media") 
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
