@@ -19,11 +19,11 @@
 									&nbsp;
 								</a>
 								<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global"
-								{% if work.image %} style="background-image: url('/var/media/{{ work.image }}');" {% endif %}>
+								{% if work.image %} style="background-image: url('{{ work.image.url }}');" {% endif %}>
 								&nbsp;
 							</div>
 							<div class="products-list-flag">
-								<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('/media/{{work.country__image}}');"{% endif %}>
+								<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('{{work.country__image.url}}');"{% endif %}>
 									<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
 								</div>
 							</div>
