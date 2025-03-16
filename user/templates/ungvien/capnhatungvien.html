@@ -29,7 +29,7 @@
 									<label for="file-input-media" id="click-chose-media">
 										<i class="fa fa-edit rf bluecolor" id="choose-avatar"></i>
 										<img id="avatar-img" 
-										src="{% if user.avata and user.avata != '' %}/media/{{ user.avata }}{% else %}/static/images/250117104859-avatar.png.webp{% endif %}" 
+										src="{% if user.avata and user.avata != '' %}/static/media/{{ user.avata }}{% else %}/static/images/250117104859-avatar.png.webp{% endif %}" 
 										height="168" />
 										<input type="file" id="file-input-media" name="avata" accept="image/*" style="display: none;">
 									</label>
@@ -379,7 +379,7 @@
 						&nbsp;
 					</div>
 					{% else %}
-					<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/media/{{user.avata}}');">
+					<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/static/media/{{user.avata}}');">
 						&nbsp;
 					</div>
 					{% endif %}
