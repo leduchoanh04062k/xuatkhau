@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g^ljb7lqkhrj6ew)$%9+*6z-86(!#uedo(0xm5!^rf(#x#@*ieiekmdoj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #COMPRESS_ENABLED = True
-# COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
-# COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 ALLOWED_HOSTS = ['xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'smart_selects',
     'captcha',
-    # 'compressor',
+    'compressor',
     'core',
     'parler',
     'ckeditor',
@@ -166,12 +166,12 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     # other finders..
-#     'compressor.finders.CompressorFinder',
-# )
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
 
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
