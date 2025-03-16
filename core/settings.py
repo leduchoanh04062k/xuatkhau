@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'smart_selects',
     'captcha',
-    'compressor',
+    # 'compressor',
     'core',
     'parler',
     'ckeditor',
