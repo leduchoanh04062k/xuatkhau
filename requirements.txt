@@ -76,7 +76,6 @@ google-cloud-language==2.14.0
 google-cloud-translate==3.16.0
 google-cloud-vision==3.7.4
 googleapis-common-protos==1.65.0
-googletrans==4.0.0rc1
 goslate==1.5.4
 grpc-google-iam-v1==0.13.1
 grpcio==1.66.2
