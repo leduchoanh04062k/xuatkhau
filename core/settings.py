@@ -196,8 +196,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = 'https://res.cloudinary.com/dohcwmo3f/image/upload/v1/'
+# MEDIA_ROOT = '/media/'
+MEDIA_URL = 'https://res.cloudinary.com/dohcwmo3f/image/upload/v1/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

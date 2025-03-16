@@ -16,9 +16,5 @@ urlpatterns += i18n_patterns (
     path('', include('city.urls')),
     path('', include('blog.urls')),
     prefix_default_language=False
-)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
