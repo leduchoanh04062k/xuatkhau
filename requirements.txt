@@ -180,3 +180,4 @@ wsproto==1.2.0
 yarl==1.13.1
 zipp==3.16.2
 zope.interface==6.0
+cloudinary==1.42.2
