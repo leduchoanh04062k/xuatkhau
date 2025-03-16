@@ -29,8 +29,8 @@ COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 ALLOWED_HOSTS = ['xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
-SITE_URL = "http://localhost:8000"
-DOMAIN_NAME = "localhost:8000"
+SITE_URL = "https://xuatkhaulaodong.onrender.com"
+DOMAIN_NAME = "xuatkhaulaodong.onrender.com"
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # Application definition
 INTERNAL_IPS = ['127.0.0.1']
