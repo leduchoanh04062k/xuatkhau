@@ -1,0 +1,224 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags humanize %} 
+{% block title %}Ứng viên ứng tuyển{% endblock %} 
+{% block description %}Ứng viên ứng tuyển{% endblock %} 
+{% block canonical %} <link
+href="{% setting "SITE_URL" %}/employers/candidate_recruitment" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users header-ntd top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner text-right">
+				<div data-id="5553" data-type="nav_menu" class="eb-sub-menu ntd-top-menu">
+					<ul class="cf">
+						<li><a href="/page/gioi-thieu">Giới thiệu</a></li>
+						<li><a href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dịch vụ</a></li>
+						<li><a href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+						<li><a href="/page/lien-he">Hỗ trợ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg employers_view-right">
+
+		<h1 class="home-h1-title employers-h1-title text-center">
+			Ứng viên ứng tuyển
+		</h1>
+		<div class="employers-glbal-padding">
+			<p>
+				Chi phí xem thông tin liên hệ của ứng viên thị trường Nhật Bản là 80.000 vnđ, đối với các thị trường khác là: 20.000 vnđ.<br />
+				<span class="redcolor">Trong trường hợp bạn không liên hệ được với ứng viên, vui lòng thông báo cho chúng tôi qua zalo: 0976.808.600 để chúng tôi có thể kiểm tra và hoàn lại số dư vào tài khoản bạn.</span>
+			</p>
+			<hr />
+			<table class="user-table">
+				<thead>
+					<tr>
+						<th>Ảnh</th>
+						<th>Họ và tên</th>
+						<th>Giới tính</th>
+						<th>Năm sinh</th>
+						<th>Tỉnh/ Thành</th>
+						<th>
+							Đơn hàng <br />
+							quan tâm	
+						</th>
+						<th>
+							Quan tâm <br />
+							nghành nghề
+						</th>
+						<th>
+							Ngày gửi <br />
+							tư vấn	 
+						</th>
+						<th width="110">
+							Thông tin <br />
+							liên hệ
+						</th>
+					</tr>
+				</thead>
+				<tbody id="emp_main_list">
+					{% for candidate in candidates %}
+					<tr>
+						<td>
+							<div class="each-to-avt">&nbsp;</div>
+						</td>
+						<td>{{ candidate.name }}</td>
+						<td class="zero-to-taxonomy"></td>
+						<td class="zero-to-taxonomy"></td>
+						<td class="zero-to-taxonomy"></td>
+						<td class="zero-to-taxonomy">{{ candidate.work.name }}</td>
+						<td class="zero-to-taxonomy">
+							{% for nganh_nghe in candidate.work.nganh_nghe.all %}
+							{{ nganh_nghe.name }}{% if not forloop.last %}, {% endif %}
+							{% endfor %}
+						</td>
+						<td class="zero-to-taxonomy">{{candidate.created|date:'d/m/Y H:i'}}</td>
+						<td>
+							{% if candidate.is_paid %}
+							{{ candidate.phone }}
+							{% else %}
+							<button style="margin:20px" class="btn btn-primary" 
+							onclick="openPaymentModal({{ candidate.id }}, {{ candidate.get_price }})">
+							Xem
+						</button>
+						{% endif %}
+					</td>
+
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</br>
+	<div class="public-part-page">
+		{% if candidates.has_previous %}
+		<a data-page="{{ candidates.previous_page_number }}" rel="nofollow" href="?page={{ candidates.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;</a>
+		{% endif %}
+
+		{% for i in candidates.paginator.page_range %}
+		{% if i >= candidates.number|add:"-5" and i <= candidates.number|add:"5" %}
+		{% if candidates.number == i %}
+		<span class="current">{{ i }}</span>
+		{% else %}
+		<a data-page="{{ i }}" rel="nofollow" href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ i }}</a>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+
+		{% if candidates.has_next %}
+		<a data-page="{{ candidates.next_page_number }}" rel="nofollow" href="?page={{ candidates.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&raquo;</a>
+		{% endif %}
+	</div>
+	<br />
+</div>
+</div>
+{% NTD %}
+<!-- Modal Thanh Toán -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xác nhận thanh toán</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p> Chi phí xem thông tin liên hệ của ứng viên thị trường Nhật Bản là 80.000 vnđ, đối với các thị trường khác là: 20.000 vnđ. &nbsp;</p> 
+				<p><strong>Chi phí:</strong> <span id="paymentAmount"></span> VNĐ</p>
+				<p><strong>Số dư hiện tại:</strong> <span id="currentBalance"></span> VNĐ</p>
+				<p id="errorMessage" style="color: red; display: none;">Số dư không đủ, vui lòng nạp tiền!</p>
+				<button class="btn btn-success" id="confirmPayment" disabled>Thanh toán</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+{% endblock %} 
+{% block js %}
+<script type="text/javascript">
+	let selectedCandidateId = null;
+	let selectedPrice = 0;
+	let userBalance = 0;
+
+	function openPaymentModal(candidateId, price) {
+		selectedCandidateId = candidateId;
+		selectedPrice = price;
+		document.getElementById("paymentAmount").innerText = price.toLocaleString();
+		fetch('/employers/candidate_recruitment', {
+			headers: { 'X-Requested-With': 'XMLHttpRequest' }
+		})
+		.then(response => response.json())
+		.then(data => {
+			userBalance = data.balance;
+			document.getElementById("currentBalance").innerText = userBalance.toLocaleString();
+			if (userBalance >= selectedPrice) {
+				document.getElementById("confirmPayment").disabled = false;
+				document.getElementById("errorMessage").style.display = "none";
+			} else {
+				document.getElementById("confirmPayment").disabled = true;
+				document.getElementById("errorMessage").style.display = "block";
+			}
+		});
+
+		$("#paymentModal").modal("show");
+	}
+
+	$("#confirmPayment").click(function () {
+		if (selectedCandidateId) {
+			fetch(`/confirm-payment/${selectedCandidateId}`, {
+				method: "POST",
+				headers: {
+					"X-CSRFToken": "{{ csrf_token }}",
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({ price: selectedPrice })  
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert("Thanh toán thành công! Số dư còn lại: " + data.new_balance.toLocaleString() + " VNĐ");
+					location.reload();
+				} else {
+					alert("Thanh toán thất bại: " + data.error);
+				}
+			});
+		}
+	});
+
+
+	function openViewUVInfoModal(uvId, isJapan, userPoint) {
+    let cost = isJapan ? 80000 : 20000; // Xác định chi phí dựa vào thị trường
+    let costElement = document.querySelector("#viewUVInfoModal .ebe-currency");
+    let footerElement = document.querySelector("#viewUVInfoModal .modal-footer");
+
+    // Cập nhật chi phí hiển thị
+    costElement.innerText = cost.toLocaleString();
+
+    // Kiểm tra số dư
+    if (userPoint >= cost) {
+    	footerElement.innerHTML = `
+    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+    	<button type="button" onclick="return action_view_uv_info(${uvId});" class="btn btn-primary">Tôi đồng ý!</button>
+    	`;
+    } else {
+    	footerElement.innerHTML = `
+    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+    	<a href="/employers/add_fund" class="btn btn-warning">Nạp thêm điểm</a>
+    	`;
+    }
+
+    $("#viewUVInfoModal").modal("show");
+}
+
+</script>
+
+
+{% endblock %} 

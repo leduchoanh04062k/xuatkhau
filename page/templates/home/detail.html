@@ -1,0 +1,571 @@
+{% extends "base.html" %}
+{% load thumbnail page_tags i18n l10n %}
+{% block title %}{{work.name}}{% endblock %}
+{% block description %}{{work.name}}{% endblock %}
+{% block canonical %}<link href="{% setting "SITE_URL" %}/{{country.slug}}/{{work.slug}}" rel="canonical">{% endblock %}
+{% block content %}
+<main id="main">
+	<div id="breadcrumb-top1">
+		<div class="thread-details-tohome">
+			<div class="w90">
+				<ul class="cf">
+					<li>
+						<a href="/" class="breadcrumb-home"><i class="fa fa-home"></i> <span>Trang chủ</span></a>
+					</li>
+					<li>
+						<a href="/{{country.slug}}"><span>Xuất khẩu lao động {{country.name}}</span></a>
+					</li>
+					<li>
+						<span>{{work.name}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row row-small">
+		<div class="col small-12 medium-12 large-12">
+			<div class="col-inner form-group">
+				<h1 class="page-details-title global-details-title global-module-title home-h1-title each-to-country-flag has-flag actived-flag" {% if country.image %} style="background-image: url('/media/{{country.image}}');"{% endif %}>
+					{{work.name}}
+				</h1>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<div class="row row-small">
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner">
+				<div id="app" class="post-view s14 l25">
+					<div class="row row-small-xoa post-view-top">
+						<div class="vuejs-builder col small-12 medium-6 large-6">
+							<div class="col-inner">
+								<h3 class="post-details-toc each-to-edit-link">
+									<span>{% if request.user.is_authenticated and request.user == work.user %}
+										<a href="/employers/edit_job/{{work.id}}" rel="nofollow" class="users-edit-link rf" style="margin:3px">Chỉnh sửa</a>
+									{% endif %}</span>
+									Thông tin đơn hàng
+								</h3>
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Mã đơn hàng</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										{% if work.id %}
+										<div class="col-inner parent-hide-if-empty">{{work.id}}</div>
+										{% endif %}
+									</div>
+								</div>
+								{% if country.name %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Quốc gia</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{country.name}}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Tỉnh, khu vực</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">
+											{{ work.province.name|default:"Toàn quốc" }}
+										</div>
+									</div>
+								</div>
+								{% if work.cong_ty_nghiep_doan %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Công ty, nghiệp đoàn</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner parent-hide-if-empty">
+											{{work.cong_ty_nghiep_doan}}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if nganh_nghe and nganh_nghe.0.nganh_nghe__name %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Ngành nghề</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">
+											{% for item in nganh_nghe %}
+											{% if item.nganh_nghe__name %}{{ item.nganh_nghe__name }}{% if not forloop.last %}, {% endif %}{% endif %}
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.cong_viec_cu_the %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Công việc cụ thể</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner parent-hide-if-empty greencolor bold">
+											{{work.cong_viec_cu_the|safe}}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if noi_thi_tuyen and noi_thi_tuyen.0.noi_thi_tuyen__name %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Nơi thi tuyển</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">
+											{% for noi_tuyen in noi_thi_tuyen %}
+											{% if noi_tuyen.noi_thi_tuyen__name %}
+											{{noi_tuyen.noi_thi_tuyen__name}}{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.thoi_gian_lam_viec %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Thời gian làm việc</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner parent-hide-if-empty">{{work.thoi_gian_lam_viec}}</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-currency-taxonomy">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Lương cơ bản</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner">
+											{% if work.luong_co_ban and work.luong_co_ban_menh_gia %}
+											<span class="convert-currency-format">{{work.luong_co_ban}}</span> 
+											<span class="waiting-currency-format loaded-to-taxonomy">{{work.luong_co_ban_menh_gia}}</span>/tháng
+											{% else %}
+											<span class="convert-currency-format">Liên hệ</span> 
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% if work.lam_them %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Làm thêm</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.lam_them}}</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-currency-taxonomy">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Thu nhập dự kiến</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner greencolor bold">
+											{% if work.thu_nhap_du_kien and work.thu_nhap_du_kien_menh_gia %}
+											<span class="convert-currency-format">{{work.thu_nhap_du_kien}}</span>
+											<span class="waiting-currency-format loaded-to-taxonomy">{{work.thu_nhap_du_kien_menh_gia}}</span>/tháng
+											{% else %}
+											<span class="convert-currency-format">Liên hệ</span>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% if work.quyen_loi_khac %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Quyền lợi khác</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner parent-hide-if-empty">
+											{{work.quyen_loi_khac|safe}}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.so_luong_tuyen %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Số lượng tuyển</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner parent-hide-if-empty">{{work.so_luong_tuyen}}</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.hop_dong and work.hop_dong != "Không giới hạn" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Hợp đồng</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.hop_dong}}</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-currency-taxonomy">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Phí xuất cảnh</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner row-contact-if-empty">Liên hệ</div></div>
+								</div>
+								{% if work.chuong_trinh_ho_tro %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Chương trình hỗ trợ</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner parent-hide-if-empty redcolor">{{work.chuong_trinh_ho_tro|safe}}</div></div>
+								</div>
+								{% endif %}
+								<h3 class="post-details-toc">Yêu cầu</h3>
+								{% if genders and genders.0.gioi_tinh__name %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Giới tính</div></div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty bold loaded-to-taxonomy">{% for gender in genders %}
+											{% if gender.gioi_tinh__name %}
+										{{gender.gioi_tinh__name}}{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}</div>
+									</div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Năm sinh</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner parent-hide-if-empty bold">{{work.ket_thuc_nam_sinh}} - {{work.nam_sinh}}</div></div>
+								</div>
+								{% if work.trinh_do_hoc_van and work.trinh_do_hoc_van != "Không" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5">
+										<div class="col-inner">Trình độ học vấn</div>
+									</div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty zero-to-taxonomy">{{work.trinh_do_hoc_van}}</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.chuyen_nganh and work.chuyen_nganh != "Không yêu cầu" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Chuyên ngành</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty zero-to-taxonomy">{{work.chuyen_nganh}}</div></div>
+								</div>
+								{% endif %}
+								{% if taynghe and taynghe.0.tay_nghe__name %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Tay nghề</div></div>
+									<div class="col small-7 medium-7 large-7">
+										<div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">
+											{% for item in taynghe %}
+											{% if item.tay_nghe__name %}
+											{{item.tay_nghe__name}}
+											{% if not forloop.last %}, {% endif %}
+											{% endif %}
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% if work.ngoai_ngu and work.ngoai_ngu != "Không" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Ngoại ngữ</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty zero-to-taxonomy">{{work.ngoai_ngu}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.yeu_cau_hoc_tieng and work.yeu_cau_hoc_tieng != "Không yêu cầu" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Yêu cầu học tiếng</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty zero-to-taxonomy">{{work.yeu_cau_hoc_tieng}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.tinh_trang_suc_khoe and work.tinh_trang_suc_khoe != "Không yêu cầu" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Tình trạng sức khỏe</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.tinh_trang_suc_khoe}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.thi_luc %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Thị lực</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.thi_luc}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.viem_gan_b and work.viem_gan_b != "Không yêu cầu" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Viêm gan B</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.viem_gan_b}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.xam_hinh and work.xam_hinh != "Không yêu cầu" %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Xăm hình</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner taxonomy-hide-if-empty loaded-to-taxonomy">{{work.xam_hinh}}</div></div>
+								</div>
+								{% endif %}
+								{% if work.yeu_cau_khac %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Yêu cầu khác</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner parent-hide-if-empty">{{work.yeu_cau_khac|safe}}</div></div>
+								</div>
+								{% endif %}
+								<br />
+								{% if work.hinh_thuc_thi_tuyen %}
+								<h3 class="post-details-toc">Thi tuyển</h3>
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Hình thức thi tuyển</div></div>
+									<div class="col small-7 medium-7 large-7"><div class="col-inner parent-hide-if-empty">{{work.hinh_thuc_thi_tuyen}}</div></div>
+								</div>
+								{% endif %}
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Ngày thi tuyển</div></div>
+									<div class="col small-7 medium-7 large-7">
+										{% if not work.ngay_thi_tuyen %}
+										<div class="col-inner parent-hide-if-empty done-to-date-format">Liên tục</div>
+										{% else %}
+										<div class="col-inner parent-hide-if-empty done-to-date-format">{{work.ngay_thi_tuyen|date:'d/m/Y'}}</div>
+										{% endif %}
+									</div>
+								</div>
+								<div class="row row-collapse post-details-line row-hide-if-empty">
+									<div class="col small-5 medium-5 large-5"><div class="col-inner">Hạn đăng ký</div>
+								</div>
+								<div class="col small-7 medium-7 large-7">
+									{% if not work.han_dang_ky %}
+									<div class="col-inner parent-hide-if-empty greencolor bold done-to-date-format">Liên tục</div>
+									{% else %}
+									<div class="col-inner parent-hide-if-empty done-to-date-format">{{work.han_dang_ky|date:'d/m/Y'}}</div>
+									{% endif %}
+								</div>
+							</div>
+							{% if work.du_kien_xuat_canh %}
+							<div class="row row-collapse post-details-line row-hide-if-empty">
+								<div class="col small-5 medium-5 large-5"><div class="col-inner">Dự kiến xuất cảnh</div></div>
+								<div class="col small-7 medium-7 large-7"><div class="col-inner parent-hide-if-empty">{{work.du_kien_xuat_canh}}</div></div>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col small-12 medium-6 large-6">
+						<div class="col-inner">
+							<div class="slider-wrapper relative">
+								<div id="data_post_gallerys" class="slider slider-nav-circle slider-nav-large slider-nav-light slider-style-normal is-draggable flickity-enabled carousel slide" data-bs-touch="false">
+									<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												{% if work.image %}
+												<img src="/media/{{work.image}}" class="d-block w-100"/>
+												{% endif %}
+											</div>
+											{% if images %}
+											{% for image in images %}
+											<div class="carousel-item">
+												<img src="/media/{{image.image}}" class="d-block w-100" alt="..." />
+											</div>
+											{% endfor %}
+											{% endif %}
+										</div>
+										<button class="flickity-button flickity-prev-next-button previous" type="button" data-bs-slide="prev" data-bs-target="#carouselExampleControlsNoTouching">
+											<svg class="flickity-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path></svg>
+										</button>
+										<button class="flickity-button flickity-prev-next-button next" type="button" data-bs-slide="next" data-bs-target="#carouselExampleControlsNoTouching">
+											<svg class="flickity-button-icon" viewBox="0 0 100 100">
+												<path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-small">
+					<div class="col small-12 medium-12 large-12 padding-bottom0">
+						<div class="col-inner">
+							<h3 class="post-details-toc">Nội dung chi tiết</h3>
+							<br>
+							{% if work.noi_dung_chi_tiet %}
+							{{work.noi_dung_chi_tiet|safe}}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="ntd-note">
+				<div class="col-inner">
+					Ứng viên lưu ý: Sàn xuất khẩu lao động .com là nền tảng kết nối thông tin, sàn không có chức năng đưa người lao động đi làm việc tại nước ngoài. Các tin tuyển dụng do nhà tuyển dụng trực tiếp đăng tải và chỉ
+					có giá trị tham khảo, ứng viên cần tìm hiểu kỹ thông tin trước khi đăng ký. Để được tư vấn, ứng viên có thể bấm nút "Tư vấn giúp tôi" hoặc liên hệ trực tiếp với nhà tuyển dụng.
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if work.user.ten_goi %}
+	<div class="col small-12 medium-3 large-3">
+		<div id="sticky-begin-in-pc" class="col-inner wgr-sticky-column s14 l25">
+			<div class="sticky-in-pc wgr-sticky-column_inner">
+				<div class="postdetails-user-info">
+					<div class="cf bottom-menu-space10">
+						<div class="lf f25">
+							{% if work.avata %}
+							<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/media/{{work.avata}}');">
+								&nbsp;
+							</div>
+							{% else %}
+							<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/static/images/ntd-default-avt1.png');">
+								&nbsp;
+							</div>
+							{% endif %}
+						</div>
+						<div class="lf f75">
+							<div>Cán bộ tự vấn</div>
+							<div><a href="/hosotuyendung/{{work.user.id}}" class="bold medium18"> 
+							{{work.user.ho_va_ten_dem}} {{work.user.ten_goi}} </a></div>
+						</div>
+					</div>
+					<div class="postdetails-user-note">
+						{{work.user.tu_van|safe}}
+					</div>
+					<div>
+						<a href="/hosotuyendung/{{work.user.id}}">Xem thêm <i class="fa fa-angle-double-right"></i></a>
+					</div>
+					<br />
+					<ul id="oi_ntd_contact" class="show-if-logged2">
+						<li class="postdetails-user-icons postdetails-user-phone">
+							<a href="tel:{{work.user.phone}}" rel="nofollow">{{work.user.username}}</a>
+						</li>
+						<li class="postdetails-user-icons postdetails-user-zalo">
+							{% if work.user.zalo == None or work.user.zalo == "" %}
+							<a target="_blank" rel="nofollow">********</a>
+							{% else %}
+							<a href="https://zalo.me/{{work.user.zalo}}" target="_blank" rel="nofollow">{{work.user.zalo}}</a>
+							{% endif %}
+						</li>
+						<li class="postdetails-user-icons postdetails-user-fb">
+							{% if not workfacebook %}
+							<a target="_blank" rel="nofollow">********</a>
+							{% else %}
+							<a href="{{work.user.facebook}}" target="_blank" rel="nofollow">Xem trang cá nhân</a>
+							{% endif %}
+						</li>
+					</ul>
+					<div class="bottom-menu-space10">
+						<button type="button" onclick="openTuVanForm({{work.id}});" class="btn btn-success post-details-btn products-list-more">Tư vấn giúp tôi</button>
+					</div>
+					<div class="bottom-menu-space10">
+						<a href="/hosotuyendung/{{work.user.id}}" class="btn btn-primary">Thông tin nhà tuyển dụng</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+<div class="home-h1-title text-center">Đơn hàng cùng nhà tuyển dụng</div>
+<div id="donhang_cung_ntd" class="row row-small row-5 row-medium-4 row-small-6 row-small">
+	{% for work in works %}
+	<div class="hide-if-gia-zero col">
+		<div {% if work.is_hot %} data-order="1" {% else %} data-order="0" {% endif %} class="products-list-padding cf">
+			<div class="products-list-left fullsize-if-mobile global-a-posi">
+				<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+					&nbsp;
+				</a>
+				<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" {% if work.image %} style="background-image: url('/media/{{work.image}}');"{% endif %}>
+					&nbsp;
+				</div>
+				<div class="products-list-flag">
+					<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('/media/{{work.country__image}}');"{% endif %}>
+						<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
+					</div>
+				</div>
+			</div>
+			<div class="products-list-right fullsize-if-mobile">
+				<div class="products-list-thunhap">
+					<span class="check-currency-format">{{work.luong_co_ban}}</span>
+					<span class="loaded-to-taxonomy">{{work.luong_co_ban_menh_gia}}</span>/tháng
+				</div>
+				<div class="products-list-yeucau">
+					{% for gioi_tinh in work.gioi_tinh %}
+					<span class="loaded-to-taxonomy">{{ gioi_tinh }}{% if not forloop.last %}, {% endif %}</span>
+					{% endfor %}
+					({{work.ket_thuc_nam_sinh}} - {{work.nam_sinh}})
+				</div>
+				<div class="products-list-ngaythituyen">
+					Tuyển:
+					<span class="done-to-date-format">
+						{{ work.ngay_thi_tuyen|date:'d/m/Y'|default:"Liên tục" }}
+					</span>
+				</div>
+				<h3 class="products-list-title">
+					<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+						{{work.name}}
+					</a>
+				</h3>
+				<div class="products-list-user cf">
+					<div class="lf f20 fullsize-if-mobile">
+						<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" 
+						style="background-image: url('{% if work.user__avata %}/media/{{ work.user__avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}');">
+						&nbsp;
+					</div>
+				</div>
+				<div class="lf f80 fullsize-if-mobile">
+					<div class="s14 threadlist-user-name">
+						Tư vấn:
+						{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+						<a href="/hosotuyendung/{{work.user__id}}">
+							<span class="set-to-user-data">{{work.user__ho_va_ten_dem}} {{work.user__ten_goi}}</span>
+							<span class="set-to-user-data"></span>
+						</a>
+						{% endif %}
+					</div>
+					<div class="cf l20 threadlist-icons-contact">
+						<div class="lf f70 threadlist-contact-left">
+							<span class="threadlist-icons-square threadlist-phone-square">&nbsp;</span>
+							{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+							<span class="threadlist-phone-text set-to-user-data">
+								{% if work.user__phone == None or work.user__phone == "" %}
+								{% else %}
+								<a href="tel:{{work.user__phone}}" rel="nofollow">{{work.user__phone}}</a>
+								{% endif %}
+							</span>
+							{% endif %}
+						</div>
+						<div class="lf f30 threadlist-contact-right text-center">
+							<div class="set-to-user-data threadlist-icons-square threadlist-zalo-square">
+								{% if work.user__zalo == None or work.user__zalo == "" %}
+								<a target="_blank" rel="nofollow">&nbsp;</a>
+								{% else %}
+								<a href="https://zalo.me/{{work.user__zalo}}" aria-label="Zalo {{work.user__zalo}}" target="_blank"rel="nofollow">&nbsp;</a>
+								{% endif %}
+							</div>
+							<div class="set-to-user-data threadlist-icons-square threadlist-facebook-square">
+								{% if not work.user__facebook %}
+								<a target="_blank" rel="nofollow">&nbsp;</a>
+								{% else %}
+								<a href="{{ work.user__facebook }}" target="_blank" rel="nofollow">&nbsp;</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="products-list-info cf">
+				<div class="lf f70 products-list-more">
+					<span class="cur" onclick="openTuVanForm({{work.id}});">Tư vấn giúp tôi</span>
+				</div>
+				<div class="lf f30 text-center l25 s14"><i class="fa fa-eye"></i> {{work.view}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% if paginator != None %}{% include "pagination_detail.html" with page=paginator %}{% endif %}
+</div>
+{% login %}
+{% tuvan %}
+</main>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/home.js"></script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load thumbnail page_tags i18n l10n %}
+{% block title %}{{page.name}}{% endblock %}
+{% block description %}{{page.name}}{% endblock %}
+{% block canonical %}<link href="{% setting "SITE_URL" %}/page/{{page.slug}}" rel="canonical">{% endblock %}
+{% block content %}
+<main id="main">
+	<div id="breadcrumb-top1">
+		<div class="thread-details-tohome">
+			<div class="w90">
+				<ul class="cf">
+					<li>
+						<a href="/" class="breadcrumb-home"><i class="fa fa-home"></i> <span>Trang chủ</span></a>
+					</li>
+					<li>
+						<span> {{page.name}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% search %}
+	<br>
+	<div class="global-page-module w90">
+		<div class="padding-global-content padding-page-content cf">
+			<div class="lf col-page-left fullsize-if-mobile">
+				<div class="col-main-padding col-page-padding">
+					<h1 class="page-details-title global-details-title global-module-title home-h1-title">
+						{{page.name}}
+					</h1>
+					<div class="img-max-width medium l20 global-details-content page-details-content ul-default-style">
+						{{page.content|safe}}
+					</div>
+					<br />
+				</div>
+			</div>
+			<div class="lf col-page-right fullsize-if-mobile">
+				<div id="page_details_menu" class="page-right-space global-right-space s15 bold">
+					<div class="eb-sub-menu page-details-menu">
+						<ul class="cf">
+							<li class="has-sub-menu current-menu-parent active">
+								<ul class="sub-menu cf">
+									{% for page in pages %}
+									<li>
+										<a class="eb-menu-text" href="/page/{{page.slug}}">{{ forloop.counter }}. {{page.name}}</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% login %}
+</main>
+{% endblock %}

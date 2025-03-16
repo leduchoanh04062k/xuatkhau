@@ -1,0 +1,58 @@
+<br />
+<form action="/tim-kiem" method="get">
+	<div id="oi_search_global" class="row row-collapse mobile_search_global">
+		<div class="col small-12 medium-10 large-10 padding-bottom0 hide-if-mobile-xoa">
+			<div class="col-inner cf">
+				<div class="lf f50 fullsize-if-mobile search_global50">
+					<select name="quoc_gia" class="form-select filter_quoc_gia">
+						<option value="">Tất cả Quốc gia</option>
+						{% for country in countries %}
+						<option value="{{ country.name }}" {% if country_name == country.name %}selected{% endif %}>
+							{{ country.name }}
+						</option>
+						{% endfor %}
+					</select>
+					<select aria-label="Ngành nghề" name="nganh_nghe" class="form-select">
+						<option value="">Tất cả Ngành nghề</option>
+						{% for profes in profess %}
+						<option value="{{profes.name}}" {% if profession_name == profes.name %}selected{% endif %}>
+							{{profes.name}}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="lf f50 fullsize-if-mobile search_global33">
+					<select aria-label="Nơi thi tuyển" name="noi_tuyen" class="form-select">
+						<option value="">Nơi thi tuyển</option>
+						{% for city in cities %}
+						<option value="{{city.name}}" {% if city_name == city.name %}selected{% endif %}>
+							{{city.name}}
+						</option>
+						{% endfor %}
+					</select>
+					<select aria-label="Giới tính" name="gioi_tinh" class="form-select">
+						<option value="">Giới tính</option>
+						{% for gender in genders %}
+						<option value="{{gender.name}}" {% if gender_name == gender.name %}selected{% endif %}>
+							{{gender.name}}
+						</option>
+						{% endfor %}
+					</select>
+					<select aria-label="Năm sinh" name="nam_sinh" class="form-select">
+						<option value="">Năm sinh</option>
+						{% for year in years %}
+						<option value="{{year|safe}}" {% if birth_year == year|safe %}selected{% endif %}>
+							{{year|safe}}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col small-12 medium-2 large-2 padding-bottom0">
+			<div class="col-inner hide-if-mobile-xoa">
+				<button type="submit" class="btn">Tìm kiếm đơn hàng</button>
+			</div>
+		</div>
+	</div>
+</form>

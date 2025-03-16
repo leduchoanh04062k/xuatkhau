@@ -1,0 +1,116 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags i18n l10n %} 
+{% block title %}Danh sách tin tuyển dụng{% endblock %} 
+{% block description %}Danh sách tin tuyển dụng{% endblock %} 
+{% block canonical %} <link href="{% setting "SITE_URL" %}/employers/list_job" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users header-ntd top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner text-right">
+				<div data-id="5553" data-type="nav_menu" class="eb-sub-menu ntd-top-menu">
+					<ul class="cf">
+						<li><a href="/page/gioi-thieu">Giới thiệu</a></li>
+						<li><a href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dịch vụ</a></li>
+						<li><a href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+						<li><a href="/page/lien-he">Hỗ trợ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg employers_view-right">
+		<h1 class="home-h1-title employers-h1-title text-center">
+			Danh sách tin tuyển dụng
+		</h1>
+		<div class="col small-12 medium-12 large-12">
+			<div class="col-inner">
+				<table class="user-table">
+					<div>
+						<a href="/employers/add_job" class="btn btn-success">Đăng tin</a> Phí đăng tin
+						<span class="ebe-currency">10,000</span>/tin - Bạn còn <strong class="redcolor"> {{ request.user.free_posts_today }}</strong>
+						lượt đăng tin miễn phí mỗi ngày.
+					</div>
+					<br>
+					<thead>
+						<tr>
+							<th>Ảnh đại diện </th>
+							<th>Thông tin đơn hàng</th>
+							<th>Thông tin bổ sung</th>
+						</tr>
+					</thead>
+					<tbody id="list_job_body">
+						{% for work in works %}
+						<tr>
+							<td>
+								<div class="table-avt">
+									<a href="/{{work.country__slug}}/{{work.slug}}.html">&nbsp;</a>
+									<div class="each-to-bgimg lazyload-img-done ty-le-h1 ty-le-global">
+										{% if work.image %}
+										<img src="/media/{{work.image}}" width="105px" height="105px">
+										{% endif %}
+									</div>
+								</div>
+							</td>
+							<td class="hide-fa-icons">
+								<div>
+									<a href="/employers/edit_job/{{work.id}}" class="bold s14">{{work.name}} <i class="fa fa-edit"></i></a>
+								</div>
+								<div class="mthread-links">
+									<a href="/{{work.country__slug}}/{{work.slug}}.html">
+										<i class="fa fa-eye"></i> 
+										Xem tin
+									</a> 
+									<a href="/employers/edit_job/{{work.id}}">
+										<i class="fa fa-edit"></i> 
+									Sửa tin</a>
+									<span class="cur delete-job-btn" data-job-id="{{ work.id }}">
+										<i class="fa fa-trash"></i> Xóa tin
+									</span>
+								</div>
+								<div class="mthread-tool">
+									<div>
+										<span class="cur hot-job-btn" data-job-id="{{work.id}}">
+											<span class="mthread-icons hot">HOT</span> Chuyển thành tin HOT (100,000đ/ngày)
+										</span>
+									</div>
+									<div>
+										<span class="cur up-job-btn" data-job-id="{{work.id}}">
+											<span class="mthread-icons up">Up</span> Up tin lên đầu (<span class="ebe-currency">10,000</span>/lần)
+										</span>
+									</div>
+									<div>
+										<a href="/employers/candidate_list"><span class="mthread-icons view">Xem</span> Xem ứng viên phù hợp với đơn hàng</a>
+									</div>
+								</div>
+							</td>
+							<td class="s12">
+								<div>
+									Danh mục: <span class="loaded-to-taxonomy bold" style="color: #0d6efd">{{work.country__name}}</span>
+								</div>
+								<div>Ngày gửi: <span class="each-to-date">{{work.created|date:"H:i:s d-m-Y"}}</span></div>
+								<div>Cập nhật: <span class="each-to-date">{{work.updated|date:"H:i:s d-m-Y"}}</span></div>
+								<div>Trạng thái: Hiển thị</div>
+								<div>Lượt xem: {{work.view}}</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if paginator != None %}{% include "pagination_list_job.html" with page=paginator %}{% endif %}
+	</div>
+	{% NTD %}
+</div>
+{% endblock %} 
+{% block js %}
+<script type="text/javascript" src="/static/js/list_job.js"></script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load page_tags %} 
+<form method="GET">
+	<div id="oi_search_global" class="uv_search_global">
+		<div class="lf f50 fullsize-if-mobile search_global33">
+			<select name="gioi_tinh" class="form-select">
+				<option value="">Giới tính</option>
+				{% for gender in genders %}
+				<option value="{{ gender.name }}" {% if gender.name == gioi_tinh %}selected{% endif %}>
+					{{ gender.name }}
+				</option>
+				{% endfor %}
+			</select>
+			<select name="nam_sinh" class="form-select">
+				<option value="">Năm sinh</option>
+				{% for year in years %}
+				<option value="{{ year }}" {% if year == nam_sinh %}selected{% endif %}>
+					{{ year }}
+				</option>
+				{% endfor %}
+			</select>
+
+			<select name="tinh_thanh_pho" class="form-select">
+				<option value="">Tỉnh/ Thành phố</option>
+				{% for city in cities %}
+				<option value="{{ city.id }}" {% if city.id == tinh_thanh_pho %}selected{% endif %}>
+					{{ city.name }}
+				</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="lf f50 fullsize-if-mobile search_global50">
+			<select name="quoc_gia" class="form-select filter_quoc_gia">
+				<option value="">Quan tâm đến</option>
+				{% for country in countries %}
+				<option value="{{ country.id }}" {% if country.id == quoc_gia %}selected{% endif %}>
+					{{ country.name }}
+				</option>
+				{% endfor %}
+			</select>
+			<select name="nganh_nghe" class="form-select">
+				<option value="">Tất cả Ngành nghề</option>
+				{% for item in profess %}
+				<option value="{{ item.id }}" {% if item.id == nganh_nghe %}selected{% endif %}>
+					{{ item.name }}
+				</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+</form>

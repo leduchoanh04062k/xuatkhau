@@ -1,0 +1,359 @@
+{% load static %}
+<div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-modal="true" role="dialog">
+	<div id="my_custom_alert" style="display: none;"></div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="popupModalLabel">Ứng viên đăng nhập</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="popup-login">
+					<form id="loginform" class="form-vertical" method="post">
+						{% csrf_token %}
+						<div class="row row-small">
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons"><i class="fa fa-phone-square"></i></div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="number" placeholder="Số điện thoại" name="username" class="form-control" required autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons"><i class="fa fa-lock"></i></div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="password" placeholder="Mật khẩu" name="password" class="form-control" required autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-8 large-8">
+								<div class="col-inner">
+									<p>
+										<label> <input type="checkbox" name="rememberme" value="30" /> Tự động đăng nhập lần sau </label>
+									</p>
+									<div>
+										<button type="submit" class="btn btn-success">Đăng nhập</button>
+										<button type="button" data-modal-title="Khởi tạo lại mật khẩu" class="btn btn-light pull-right" style="color: #00f;">Quên mật khẩu?</button>
+									</div>
+									<br />
+									<div><button type="button" data-modal-title="Đăng ký mở tài khoản" class="btn btn-danger f100">Đăng ký mở tài khoản</button></div>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<form id="resetPassForm" style="display: none;" method="post">
+						{% csrf_token %}
+						<div class="row row-small">
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons">
+									<i class="fa fa-phone-square"></i>
+								</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="number" placeholder="Nhập số điện thoại" name="username" id="username" required class="form-control" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<div>
+										<button type="button" id="sendOtpBtn" class="btn btn-success f100">Gửi OTP</button>
+									</div>
+									<br />
+									<div>
+										<button type="button" class="btn btn-light bluecolor f100"><i class="fa fa-angle-double-left"></i> Quay lại trang đăng nhập</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<form id="verifyform" style="display: none;" method="post">
+						{% csrf_token %}
+						<input type="hidden" name="username" id="username_hidden" value="{{ request.POST.username }}" />
+
+						<div class="row row-small">
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<div class ="otp_display" style="display: none;"></div>
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="number" placeholder="Nhập mã OTP" name="verify_code" required class="form-control" maxlength="6" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="text" placeholder="Mật khẩu mới" name="new_password" required class="form-control graycolor" minlength="6" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<button type="submit" class="btn btn-success f100">Cập nhật mật khẩu</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<form id="otpform" style="display: none;" method="post">
+						{% csrf_token %}
+						<div class="row row-small">
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons"><i class="fa fa-phone-square"></i></div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="number" placeholder="Nhập mã OTP" name="otp" id="otp" required class="form-control" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<div class="otp_display" style="display: none;"></div>
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<div>
+										<button type="button" id="verifyOtp" class="btn btn-success f100">Gửi OTP</button>
+									</div>
+									<br />
+									<div>
+										<button type="button" class="btn btn-light bluecolor f100"><i class="fa fa-angle-double-left"></i> Quay lại trang đăng nhập</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<div class="register-step-tab register-step-select text-center">
+						<div class="medium18">Vui lòng lựa chọn nhóm phù hợp nhất với bạn.</div>
+						<br />
+						<div class="row row-small">
+							<div class="col small-12 medium-6 large-6">
+								<div class="cur col-inner" data-modal-title="Tôi là Ứng viên tìm việc">
+									<div class="popup-student-login">&nbsp;</div>
+									<button type="button" data-modal-title="Tôi là Ứng viên tìm việc" class="btn btn-success">Tôi là Ứng viên tìm việc</button>
+								</div>
+							</div>
+							<div class="col small-12 medium-6 large-6">
+								<div class="cur col-inner" data-modal-title="Tôi là Nhà tuyển dụng">
+									<div class="popup-bussiness-login">&nbsp;</div>
+									<button type="button" data-modal-title="Tôi là Nhà tuyển dụng" class="btn btn-primary">Tôi là Nhà tuyển dụng</button>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button type="button" class="btn btn-light bluecolor"><i class="fa fa-angle-double-left"></i> Quay lại trang đăng nhập</button>
+						</div>
+					</div>
+
+					<form id="registerform" class="form-vertical" method="post">
+						{% csrf_token %}
+						<input type="hidden" id="role" name="role" value="applicant" />
+						<div class="row row-small">
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons"><i class="fa fa-phone-square"></i></div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="text" placeholder="Nhập số điện thoại" name="user_name" id="user_name" required class="form-control" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner popup-login-icons"><i class="fa fa-lock"></i></div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="password" placeholder="Nhập mật khẩu" name="password" required class="form-control" minlength="6" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-3 medium-2 large-2">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-9 medium-8 large-8">
+								<div class="col-inner">
+									<input type="password" placeholder="Nhập lại mật khẩu" name="password2" required class="form-control" minlength="6" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-3 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-8 large-8 custom_text19">
+								<div class="col-inner s12">
+									Bằng việc nhấn nút đăng ký, bạn đã đồng ý với <a href="/page/dieu-khoan-su-dung" target="_blank">Điều khoản sử dụng</a> và <a href="/page/chinh-sach-bao-mat-thong-tin" target="_blank">Chính sách bảo mật</a> của Sàn xuất khẩu lao động .com.
+								</div>
+							</div>
+							<div class="col small-12 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-3 medium-2 large-2 hide-if-mobile">
+								<div class="col-inner">&nbsp;</div>
+							</div>
+							<div class="col small-12 medium-8 large-8">
+								<div class="col-inner">
+									<div>
+										<button type="submit" id="sendOtp" class="btn btn-success f100">Đăng ký Ứng viên</button>
+									</div>
+									<br />
+									<div>
+										<button type="button" class="btn btn-light bluecolor f100"><i class="fa fa-angle-double-left"></i> Quay lại trang đăng nhập</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="updateModal" class="modal fade" tabindex="-1">
+	<div id="my_custom_alert1" style="display: none;"></div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Cập nhật thông tin</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center">Bạn vui lòng cập nhật đầy đủ thông tin bên dưới để website gợi ý cho bạn những đơn hàng phù hợp nhất với bạn nhé</div>
+				<form id="updateForm" class="form-vertical" method="post">
+					{% csrf_token %}
+					<div class="row row-small">
+						<div class="col small-12 medium-2 large-2">
+							<div class="col-inner">&nbsp;</div>
+						</div>
+						<div class="col small-12 medium-8 large-8">
+							<div class="col-inner uv-update-info">
+								<div>
+									<input type="text" placeholder="Nhập họ tên (*)" name="ho_va_ten_dem" id="data_full_name" required="" class="form-control" autocomplete="off" />
+								</div>
+								<div>
+									<select name="gioi_tinh" id="popup_data_gioi_tinh" required class="form-select">
+										<option>Giới tính (*)</option>
+										{% for gender in genders %}
+										<option value="{{gender.name}}">{{gender.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div>
+									<select name="nam_sinh" id="popup_data_nam_sinh" placeholder="Năm sinh" required="" class="form-select">
+										<option value="">Năm sinh (*)</option>
+										{% for year in years %}
+										<option value="{{year|safe}}">{{year|safe}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div>
+									<select name="tinh_thanh_pho" id="poup_data_province_id" placeholder="Tỉnh/ Thành phố" class="form-select">
+										<option value="">Tỉnh/ Thành phố (*)</option>
+										{% for city in cities %}
+										<option value="{{city.id}}">{{city.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div>
+									<label for="poup_data_company_country_ids">Quan tâm đến xklđ quốc gia:</label>
+									<select name="country[]" id="poup_data_company_country_ids" placeholder="Quan tâm đến xklđ quốc gia" required="" class="form-select" multiple="multiple">
+										{% for country in countries %}
+										<option value="{{country.id}}">{{country.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div>
+									<label for="popup_data_nganh_nghe">Quan tâm đến ngành nghề:</label>
+									<select name="nganh_nghe[]" id="popup_data_nganh_nghe" placeholder="Quan tâm đến ngành nghề" required="" class="form-select" multiple="multiple">
+										{% for profe in profess %}
+										<option value="{{profe.id}}">{{profe.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="find_job-btn text-center">
+									<div>
+										<button type="submit" class="btn btn-primary bold"><i class="fa fa-save"></i> Cập nhật thông tin</button>
+									</div>
+									<div id="uv_build_url_filter">
+										<div>
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/static/js/modal_login.js"></script>

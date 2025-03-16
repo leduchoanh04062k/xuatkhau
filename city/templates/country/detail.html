@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load thumbnail page_tags i18n l10n %}
+{% block title %} Xuất khẩu lao động {{country.name}} {% now 'Y' %} {% if country.meta_title %}| {{country.meta_title}}{% endif %}{% endblock %}
+{% block description %}{% if country.meta_description %}{{country.meta_description}}{% endif %}{% endblock %}
+{% block canonical %}<link href="{% setting "SITE_URL" %}/{{country.slug}}" rel="canonical">{% endblock %}
+{% block content %}
+<main id="main">
+	{% search %}
+	<div id="breadcrumb-top1">
+		<div class="thread-details-tohome">
+			<div class="w90">
+				<ul class="cf">
+					<li>
+						<a href="/" class="breadcrumb-home">
+							<i class="fa fa-home"></i> 
+							<span>Trang chủ</span>
+						</a>
+					</li>
+					<li>
+						<span> Xuất khẩu lao động {{country.name}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="w90 cf">
+		<div class="lf global-left-col">
+			<div class="global-left-pading">
+				<h1 class="home-h1-title text-center">Việc làm xuất khẩu lao động mới nhất</h1>
+				<div class="get_products_in_line row row-3 row-medium-4 row-small-6 row-small">
+					{% for work in works %}
+					<div class="hide-if-gia-zero col">
+						<div {% if work.is_hot %} data-order="1" {% else %} data-order="0" {% endif %} class="products-list-padding cf">
+							<div class="products-list-left fullsize-if-mobile global-a-posi">
+								<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+									&nbsp;
+								</a>
+								<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" {% if work.image %} style="background-image: url('/media/{{work.image}}');"{% endif %}>
+									&nbsp;
+								</div>
+								<div class="products-list-flag">
+									<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('/media/{{work.country__image}}');"{% endif %}>
+										<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
+									</div>
+								</div>
+							</div>
+							<div class="products-list-right fullsize-if-mobile">
+								<div class="products-list-thunhap">
+									<span class="check-currency-format">{{work.luong_co_ban}}</span>
+									<span class="loaded-to-taxonomy">{{work.luong_co_ban_menh_gia}}</span>/tháng
+								</div>
+								<div class="products-list-yeucau">
+									{% for gioi_tinh in work.gioi_tinh %}
+									<span class="loaded-to-taxonomy">{{ gioi_tinh }}{% if not forloop.last %}, {% endif %}</span>
+									{% endfor %}
+									({{work.nam_sinh}} - {{work.ket_thuc_nam_sinh}})
+								</div>
+								<div class="products-list-ngaythituyen">
+									Tuyển:
+									<span class="done-to-date-format">
+										{{ work.ngay_thi_tuyen|date:'d/m/Y'|default:"Liên tục" }}
+									</span>
+								</div>
+								<h3 class="products-list-title">
+									<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+										{{work.name}}
+									</a>
+								</h3>
+								<div class="products-list-user cf">
+									<div class="lf f20 fullsize-if-mobile">
+										<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" 
+										style="background-image: url('{% if work.user__avata %}/media/{{ work.user__avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}');">
+										&nbsp;
+									</div>
+								</div>
+								<div class="lf f80 fullsize-if-mobile">
+									<div class="s14 threadlist-user-name">
+										Tư vấn:
+										{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+										<a href="/hosotuyendung/{{work.user__id}}">
+											<span class="set-to-user-data">{{work.user__ho_va_ten_dem}} {{work.user__ten_goi}}</span>
+											<span class="set-to-user-data"></span>
+										</a>
+										{% endif %}
+									</div>
+									<div class="cf l20 threadlist-icons-contact">
+										<div class="lf f70 threadlist-contact-left">
+											<span class="threadlist-icons-square threadlist-phone-square">&nbsp;</span>
+											{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+											<span class="threadlist-phone-text set-to-user-data">
+												{% if work.user__phone == None or work.user__phone == "" %}
+												{% else %}
+												<a href="tel:{{work.user__phone}}" rel="nofollow">{{work.user__phone}}</a>
+												{% endif %}
+											</span>
+											{% endif %}
+										</div>
+										<div class="lf f30 threadlist-contact-right text-center">
+											<div class="set-to-user-data threadlist-icons-square threadlist-zalo-square">
+												{% if work.user__zalo == None or work.user__zalo == "" %}
+												<a target="_blank" rel="nofollow">&nbsp;</a>
+												{% else %}
+												<a href="https://zalo.me/{{work.user__zalo}}" aria-label="Zalo {{work.user__zalo}}" target="_blank"rel="nofollow">&nbsp;</a>
+												{% endif %}
+											</div>
+											<div class="set-to-user-data threadlist-icons-square threadlist-facebook-square">
+												{% if not work.user__facebook %}
+												<a target="_blank" rel="nofollow">&nbsp;</a>
+												{% else %}
+												<a href="{{ work.user__facebook }}" target="_blank" rel="nofollow">&nbsp;</a>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="products-list-info cf">
+								<div class="lf f70 products-list-more">
+									<span class="cur" onclick="openTuVanForm({{work.id}});">Tư vấn giúp tôi</span>
+								</div>
+								<div class="lf f30 text-center l25 s14"><i class="fa fa-eye"></i> {{work.view}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% if paginator != None %}{% include "pagination_country.html" with page=paginator %}{% endif %}
+			<br />
+		</div>
+	</div>
+	<div class="lf global-right-col">
+		<div class="hometopdoanhnghiep show-view-more blog-section">
+			<div class="eb-widget-title"><span>Dành cho ứng viên</span></div>
+			{% include 'widgets/_danh_cho_ung_vien.html' %}
+		</div>
+		<br />
+		<h3 class="global-home-title">Ứng viên mới đăng ký</h3>
+		{% ungvien %}
+		<br />
+		<div class="global-right-banner homerightslider show-view-more blog-section">
+			<div class="eb-widget-title"><span>Website hữu ích</span></div>
+			{% include 'widgets/_website_uu_ich.html' %}
+		</div>
+	</div>
+</div>
+{% login %}
+{% tuvan %}
+</main>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/home.js"></script>
+{% endblock %}

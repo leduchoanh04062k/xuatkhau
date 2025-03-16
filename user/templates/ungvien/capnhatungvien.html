@@ -1,0 +1,414 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags i18n l10n %} 
+{% block title %}Cập nhật thông tin nhà tuyển dụng{% endblock %} 
+{% block description %}Cập nhật thông tin nhà tuyển dụng{% endblock %} 
+{% block canonical %}
+<link href="{% setting "SITE_URL" %}/candidates/myinfo" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg">
+		<div class="my_custom_alert" id="my_custom_alert">
+		</div>
+		<h1 class="home-h1-title employers-h1-title text-center">Cập nhật thông tin tài khoản</h1>
+		<form id="update-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div id="uv_edit" class="s14 candidate-details-mid">
+				<div class="employers-details-top employers-edit-top candidate-details-top">
+					<div class="row">
+						<div class="col small-12 medium-12 large-12">
+							<div class="col-inner">
+								<div class="employers-details-avt">
+									<label for="file-input-media" id="click-chose-media">
+										<i class="fa fa-edit rf bluecolor" id="choose-avatar"></i>
+										<img id="avatar-img" 
+										src="{% if user.avata and user.avata != '' %}/media/{{ user.avata }}{% else %}/static/images/250117104859-avatar.png.webp{% endif %}" 
+										height="168" />
+										<input type="file" id="file-input-media" name="avata" accept="image/*" style="display: none;">
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col small-12 medium-6 large-6">
+							<div class="col-inner">
+								<div class="row row-small uv_input-template">
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Họ và Tên đệm
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.ho_va_ten_dem}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Tên gọi
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.ten_goi}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Giới tính
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.gioi_tinh}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Năm sinh
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										{{form.nam_sinh}}
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Ghi chú
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.ghi_chu}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col small-12 medium-6 large-6">
+							<div class="col-inner">
+								<div class="row row-small uv_input-template">
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Điện thoại
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.phone}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Số Zalo
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.zalo}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Facebook
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.facebook}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Địa chỉ
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.dia_chi}}
+										</div>
+									</div>
+									<div class="col small-12 medium-5 large-5">
+										<div class="col-inner col-inner-label bold">
+											Tỉnh/ Thành phố
+										</div>
+									</div>
+									<div class="col small-12 medium-7 large-7">
+										<div class="col-inner">
+											{{form.tinh_thanh_pho}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="row l35">
+					<div class="col small-12 medium-6 large-6">
+						<div class="col-inner">
+							<h3 class="cv-block-title">Quan tâm đến</h3>
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Xklđ các nước
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										<div class="each-to-checkboxed add-job-checkbox">
+											{{form.country}}
+										</div>
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Ngành nghề
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										<div class="each-to-checkboxed add-job-checkbox">
+											{{form.nganh_nghe}}
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="cv-block-title">Học vấn</h3>
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Tốt nghiệp
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.tot_nghiep}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Ngoại ngữ
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.ngoai_ngu}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Bằng nghề
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.bang_nghe}}
+									</div>
+								</div>
+							</div>
+							<h3 class="cv-block-title">Kinh nghiệm</h3>
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Tay nghề
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.tay_nghe}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Đã đi xklđ
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.da_di_xkld}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col small-12 medium-6 large-6">
+						<div class="col-inner">
+							<h3 class="cv-block-title">Sức khỏe</h3>
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Chiều cao (cm)
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.chieu_cao}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Cân nặng (kg)
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.can_nang}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Thị lực (1 - 10)
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.thi_luc}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Hình xăm
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.hinh_xam}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Viêm gan B
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.viem_gan_b}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Hút thuốc
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.hut_thuoc}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Uống rượu
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.uong_ruou}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Bệnh di truyền
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.benh_di_truyen}}
+									</div>
+								</div>
+							</div>
+							<h3 class="cv-block-title">Tự giới thiệu</h3>
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Tính cách
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.tinh_cach}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Sở thích
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.so_thich}}
+									</div>
+								</div>
+								<div class="col small-12 medium-5 large-5">
+									<div class="col-inner col-inner-label bold">
+										Yêu cầu khác
+									</div>
+								</div>
+								<div class="col small-12 medium-7 large-7">
+									<div class="col-inner">
+										{{form.yeu_cau_khac}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-small">
+					<div class="col small-12 medium-12 large-12">
+						<div class="col-inner text-center">
+							<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Cập nhật</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="lf f20 fullsize-if-mobile">
+		<div class="right-employers-menu s14 l25">
+			<div class="cf info-employers-menu">
+				<div class="lf f30">
+					{% if user.avata == None or user.avata == "" %}
+					<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/static/images/250117104859-avatar.png.webp');">
+						&nbsp;
+					</div>
+					{% else %}
+					<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/media/{{user.avata}}');">
+						&nbsp;
+					</div>
+					{% endif %}
+				</div>
+				<div class="lf f70">
+					{% if user.ho_va_ten_dem and user.ten_goi %}
+					<div class="bold">
+						{{user.ho_va_ten_dem}} {{user.ten_goi}}
+					</div>
+					{% endif %}
+					<div>ID: {{user.username}}</div>
+				</div>
+			</div>
+			<ul id="right_employers_menu">
+				<ul class="cf">
+					<li><a href="/candidates/myinfo" class="aquacolor active-menu-item">Cập nhật thông tin</a></li>
+					<li><a href="/" class="noreferrer-noopener">Đơn hàng đã ứng tuyển</a></li>
+					<li><a href="/hosoungvien/{{user.id}}" class="">Xem CV của bạn</a></li>
+					<li><a href="#" class="users-logout logoutBtn">Đăng xuất</a></li>
+				</ul>
+			</ul>
+		</div>
+		<div class="info-employers-menu version-employers-menu">
+			<div>Version 4.5.5</div>
+			<div>© 2025 all rights reserved</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/updateungvien.js"></script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Page not found - Error 500{% endblock %}
+{% block content %}
+<main id="main">
+    <div class="page-404"  style="padding: 30px">
+        <div class="container">
+            <div class="home-h1-title text-center" style="font-size: 50px">500</div>
+            <div class="home-h1-title text-center">Không tìm thấy trang.</div>
+            <div class="helpful-links text-center">
+                <span>Xin lỗi, chúng tôi không thể xác định vị trí trang bạn yêu cầu.
+                    Hãy tìm kiếm trang web của chúng tôi hoặc truy cập <a  href="/">Trang chủ</a> của chúng tôi.
+                </span>
+            </div>
+        </div>
+    </div>
+    <br>
+</main>
+{% endblock %}
+

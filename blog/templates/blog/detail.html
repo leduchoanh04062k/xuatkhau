@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load thumbnail page_tags i18n l10n %}
+{% block title %}{{blog.name}}{% endblock %}
+{% block description %}{{blog.name}}{% endblock %}
+{% block canonical %}<link href="{% setting "SITE_URL" %}/blog/{{cate.slug}}/{{blog.slug}}" rel="canonical">{% endblock %}
+{% block content %}
+<main id="main">
+	<div id="breadcrumb-top1">
+		<div class="thread-details-tohome">
+			<div class="w90">
+				<ul class="cf">
+					<li>
+						<a href="/" class="breadcrumb-home"><i class="fa fa-home"></i> <span>Trang chủ</span></a>
+					</li>
+					<li>
+						<a href="/blog/{{cate.slug}}"><span> {{cate.name}}</span></a>
+					</li>
+					<li>
+						<span>{{blog.name}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% search %}
+	<div class="w90 cf">
+		<div class="lf global-left-col">
+			<div class="global-left-pading s14 news-home">
+				<div class="padding-global-content padding-blogs-content cf">
+					<div class="lf f70 fullsize-if-mobile">
+						<div class="blogs-view-main">
+							<h1 class="blog-details-title global-details-title global-module-title home-h1-title">
+							{{blog.name}}                        </h1>
+							<div class="img-max-width global-details-content post-details-content ul-default-style remove-first-img">
+								{{blog.content|safe}}
+							</div>
+							<br />
+						</div>
+						{% if blogs %}
+						<div class="text-center">
+							<div class="other-post-title global-module-title home-h1-title">Tin liên quan</div>
+						</div>
+						<div id="blog_same_cat" class="eb-blog eb-blogmain main-posts-list get_post_in_line row row-12 row-medium-12 row-small-12  ">
+							{% for blog in blogs %}
+							<div class="hide-if-gia-zero col">
+								<article class="eb-blog-padding eb-news-padding cf">
+									<div class="lf eb-blog-left eb-news-left global-a-posi">
+										<a title="{{blog.name}}" 
+										href="/blog/{{blog.cate__slug}}/{{blog.slug}}.html">
+											&nbsp;
+										</a>
+										<div class="eb-blog-avt each-to-bgimg lazyload-img-done ty-le-h180_300 ty-le-global" style="background-image: url('/media/{{blog.image}}');">
+											&nbsp;
+										</div>
+									</div>
+									<div class="lf eb-blog-right eb-news-right">
+										<div class="eb-blog-marginleft eb-news-marginleft l19">
+											<header class="entry-header">
+												<h3 class="eb-blog-title">
+													<a title="{{blog.name}}" href="/blog/{{blog.cate__slug}}/{{blog.slug}}.html">
+														{{blog.name}}
+													</a>
+												</h3>
+												<div class="eb-blog-infos">
+													<h6 class="eb-blog-cat loaded-to-taxonomy">Hướng dẫn</h6>
+												</div>
+											</header>
+											<div class="entry-content">
+												<div class="eb-blog-gioithieu entry-summary">
+													{{blog.description}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</article>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					</div>
+					<div class="lf f30 fullsize-if-mobile">
+						{% include 'widgets/_blog.html' %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="lf global-right-col">
+			<div class="hometopdoanhnghiep show-view-more blog-section">
+				<div class="eb-widget-title"><span>Dành cho ứng viên</span></div>
+				{% include 'widgets/_danh_cho_ung_vien.html' %}
+			</div>
+			<br />
+			<div class="row row-small row-12 row-medium-6 row-small-6 right-blogs-menu">
+				{% blogWork %} 
+			</div>
+		</div>
+	</div>
+</main>
+{% login %}
+{% tuvan %}
+{% endblock %}

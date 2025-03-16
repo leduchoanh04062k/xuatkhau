@@ -1,0 +1,168 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags humanize %} 
+{% block title %}Nhà tuyển dụng Nạp tiền vào tài khoản{% endblock %} 
+{% block description %}Nhà tuyển dụng Nạp tiền vào tài khoản{% endblock %} 
+{% block canonical %} <link
+href="{% setting "SITE_URL" %}/employers/add_fund" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users header-ntd top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner text-right">
+				<div data-id="5553" data-type="nav_menu" class="eb-sub-menu ntd-top-menu">
+					<ul class="cf">
+						<li><a href="/page/gioi-thieu">Giới thiệu</a></li>
+						<li><a href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dịch vụ</a></li>
+						<li><a href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+						<li><a href="/page/lien-he">Hỗ trợ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg employers_view-right">
+		<h1 class="home-h1-title employers-h1-title text-center">Nạp tiền vào tài khoản</h1>
+		<br />
+		<div class="row row-small s14">
+			<div class="col small-12 medium-12 large-12">
+				<div class="col-inner">
+					<p class="greencolor s16 bold">
+						Điều khoản sử dụng.
+					</p>
+					<div class="medium custom_textarea0">
+						- Để nạp tài khoản, bạn vui lòng chọn số tiền muốn nạp sau đó quét mã qr để tiến hành thanh toán.<br />
+						- Sau khi chuyển khoản, bạn vui lòng đợi trong 05 - 10' để hệ thống ghi nhận số dư. Trong thời gian chờ đợi bạn có thể sử dụng các tính năng khác.<br />
+						- Trong trường hợp quá 10' hệ thống không ghi nhận số dư, bạn vui lòng liên hệ zalo <a href="https://zalo.me/0976808600" target="_blank" class="bold" rel="nofollow">0976808600</a> để được hỗ trợ.<br />
+						- Với việc nạp tài khoản, bạn đã đồng ý với “Điều khoản sử dụng” của sàn xuất khẩu lao động .com<br />
+						- Số tiền nhà tuyển dụng nạp được sử dụng để đăng tin, up tin, đăng tin nổi bật hoặc xem hồ sơ ứng viên, số tiền này sẽ không được hoàn lại.<br />
+						- Thời hạn sử dụng trong vòng 06 tháng kể từ ngày nạp tiền.<br />
+						- Bảng giá các dịch vụ được cập nhật công khai trên website Https://sanxuatkhaulaodong.com
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row row-small s14 align-middle add_fund-bank-copy">
+			<div class="col small-12 medium-8 large-8">
+				<div class="col-inner">
+					<div class="cf">
+						<div class="lf f80">
+							<h5>Chọn số tiền muốn nạp (VNĐ):</h5>
+							<select id="change_order_period" class="form-select">
+								{% for item in prices %}
+								<option value="{{ item.id }}"> {{ item.price|intcomma }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="cf">
+						<div class="lf f80">
+							<h5>Thông tin thanh toán:</h5>
+							<div class="row row-collapse l25 action-click2Copy">
+								<div class="col medium-4 small-12 large-3">
+									<div class="col-inner">Ngân hàng</div>
+								</div>
+								<div class="col medium-8 small-12 large-9">
+									<div class="col-inner">
+										<label> <input type="text" value="BIDV" class="form-control upper" onclick="click2Copy(this);" readonly="" /> <i class="fa fa-copy"></i> </label>
+									</div>
+								</div>
+								<div class="col medium-4 small-12 large-3">
+									<div class="col-inner">Chủ tài khoản</div>
+								</div>
+								<div class="col medium-8 small-12 large-9">
+									<div class="col-inner">
+										<label> <input type="text" value="CTY TNHH ANVIBI GROUP" class="form-control upper" onclick="click2Copy(this);" readonly="" /> <i class="fa fa-copy"></i> </label>
+									</div>
+								</div>
+								<div class="col medium-4 small-12 large-3">
+									<div class="col-inner">Số tài khoản</div>
+								</div>
+								<div class="col medium-8 small-12 large-9">
+									<div class="col-inner">
+										<label> <input type="text" value="2141740185" class="form-control" onclick="click2Copy(this);" readonly="" /> <i class="fa fa-copy"></i> </label>
+									</div>
+								</div>
+								<div class="col medium-4 small-12 large-3">
+									<div class="col-inner">Số tiền</div>
+								</div>
+								<div class="col medium-8 small-12 large-9">
+									<div class="col-inner">
+										<label> <input type="number" id="amount_display" onclick="click2Copy(this);" class="form-control change-tong_tien" readonly /> <i class="fa fa-copy"></i> </label>
+									</div>
+								</div>
+								<div class="col medium-4 small-12 large-3">
+									<div class="col-inner">Nội dung</div>
+								</div>
+								<div class="col medium-8 small-12 large-9">
+									<div class="col-inner">
+										<label> <input type="text" value="Bill {{user.id}}" onclick="click2Copy(this);" class="form-control" readonly="" /> <i class="fa fa-copy"></i> </label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="redcolor d-none">
+						<i class="fa fa-warning"></i> Quý khách vui lòng nhập chính xác Nội dung chuyển khoản là: <strong class="s16"> Bill {{user.id}} </strong> để thuận tiện cho quá trình tra soát cũng như nạp tiền vào tài khoản của bạn.
+					</div>
+				</div>
+			</div>
+			<div class="col small-12 medium-4 large-4">
+				<div class="col-inner">
+					<div class="autobank-logo" style="background-image: url('https://api.vietqr.io/img/BIDV.png');">
+						&nbsp;
+					</div>
+					<br />
+					<div class="qr-code-autobank">
+						<img id="qr-image" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% NTD %}
+</div>
+{% endblock %} 
+{% block js %}
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function () {
+		let selectElement = document.getElementById("change_order_period");
+		let amountInput = document.getElementById("amount_display");
+		let qrImage = document.getElementById("qr-image");
+
+		if (!selectElement || !amountInput || !qrImage) {
+			console.error("Không tìm thấy một trong các phần tử cần thiết!");
+			return;
+		}
+
+		let userId = "{{ user.id }}"; 
+
+		let prices = {
+			{% for item in prices %}
+			"{{ item.id }}": {{ item.price }},
+			{% endfor %}
+		};
+
+		selectElement.addEventListener("change", function () {
+			let selectedId = this.value;
+			let selectedPrice = prices[selectedId];
+
+			if (selectedPrice) {
+				amountInput.value = selectedPrice; 
+				qrImage.src = `https://img.vietqr.io/image/970418-2141740185-compact2.jpg?amount=${selectedPrice}&addInfo=Bill+${userId}&accountName=CTY+TNHH+ANVIBI+GROUP`;
+			}
+		});
+
+		selectElement.dispatchEvent(new Event("change"));
+	});
+</script>
+<script type="text/javascript" src="/static/js/add_fund.js"></script>
+{% endblock %}

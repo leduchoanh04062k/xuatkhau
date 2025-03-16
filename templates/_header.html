@@ -1,0 +1,184 @@
+{% load static page_tags %}
+<header id="wgr__top">
+    <section class="top-section">
+        <div class="row row-collapse align-middle">
+            <div class="col small-12 medium-6 large-6">
+                <div class="col-inner">
+                    <div class="eb-sub-menu top-left-menu">
+                        <ul class="cf">
+                            <li><a class="eb-menu-text active-menu-item" href="/">Trang chủ</a></li>
+                            <li><a class="eb-menu-text" href="/page/gioi-thieu">Giới thiệu</a></li>
+                            <li><a class="eb-menu-text" href="/blog/huong-dan">Hướng dẫn</a></li>
+                            <li><a class="eb-menu-text" href="/blog/chuong-trinh-ho-tro-xkld">Chương trình hỗ trợ</a></li>
+                            <li><a class="eb-menu-text" href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Nhà tuyển dụng</a></li>
+                            <li><a class="eb-menu-text" href="/blog/tin-tuc">Tư vấn xklđ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col small-6 medium-12 large-6">
+                <div class="col-inner row row-collapse align-middle">
+                    <div class="col small-12 medium-3 large-3 text-center">
+                        <div class="col-inner">
+                            <button type="button" aria-label="Tìm kiếm" class="btn btn-light btn-small" data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <i class="fa fa-search"></i>
+                                Tìm kiếm
+                            </button>
+                        </div>
+                    </div>
+                    {% if request.session.role == "applicant" %}
+                    <div class="col small-12 medium-9 large-9">
+                        <div class="col-inner top-user-loged top-full-btn">
+                            <a href="/candidates/myinfo" class="btn btn-success top-user-myinfo">
+                                <i class="fa fa-user-o"></i> {% if request.user.ho_va_ten_dem %}{{request.user.ho_va_ten_dem}} {% endif %} {% if request.user.ten_goi %}{{request.user.ten_goi}} {% endif %}
+                            </a>
+                            <ul>
+                                <li><a href="/candidates/myinfo">Thông tin tài khoản</a></li>
+                                <li><a href="#" class="users-logout logoutBtn">Đăng xuất</a></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    {% elif request.session.role == "employer" %}
+                    <div class="col small-12 medium-9 large-9">
+                        <div class="col-inner top-user-loged top-full-btn">
+                            <a href="employers/list_job" class="btn btn-success top-user-myinfo"><i class="fa fa-user-o"></i>
+                            </a>
+                            <a href="/employers/list_job" class="btn btn-primary"><i class="fa fa-plus"></i> Nhà tuyển
+                            dụng đăng tin</a>
+                            <ul>
+                                <li><a href="/employers/myinfo">Thông tin tài khoản</a></li>
+                                <li><a href="/employers/add_job">Đăng tin</a></li>
+                                <li><a href="/employers/list_job">Danh sách tin tuyển dụng</a></li>
+                                <li><a href="#" class="users-logout logoutBtn">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col small-12 medium-9 large-9">
+                        <div class="col-inner top-user-loged top-full-btn">
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#popupModal" data-modal-title="Ứng viên đăng nhập">
+                                <i class="all-icons ung-vien"></i> Ứng viên đăng nhập
+                            </button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupModal" data-modal-title="Nhà tuyển dụng đăng nhập">
+                                <i class="all-icons ntd"></i> Nhà tuyển dụng đăng tin
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="top-mid-section default-bg top-mid-section-1">
+        <div class="row row-collapse align-middle">
+            <div class="col small-12 medium-4 large-4">
+                <div class="col-inner">
+                    <a href="/" class="web-logo active-menu-item" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+                </div>
+            </div>
+            <div class="col small-12 medium-8 large-8 text-right">
+                <div class="col-inner global-728x90-topbanner">
+                    <div id="ads_options472" class="topglobalbanner hide-widget-title ebwidget-run-slider show-view-more blog-section">
+                        <div class="eb-blog eb-widget-blogs row row-12 blogs_node_chi_anh row-collapse slider actived-slider row-slider slider-nav-circle slider-nav-light is-draggable flickity-enabled">
+                            <div class="flickity-viewport" style="height: 90px; touch-action: pan-y;">
+                                <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">
+                                    <div class="col is-selected" style="position: absolute; left: 0%;">
+                                        <div class="eb-blog-padding eb-news-padding global-a-posi">
+                                            <a title="global top banner" aria-label="global top banner" href="/page/dich-vu-phap-ly-cho-doanh-nghiep-xuat-khau-lao-dong">
+                                                &nbsp;
+                                            </a>
+                                            <div class="eb-blog-avt each-to-bgimg lazyload-img-done ty-le-h90_728 ty-le-global" style="background-image: url('/static/images/luat-5-medium_large.png');">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="cf header-mobile">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#popupModal" data-modal-title="Ứng viên đăng nhập"><i class="all-icons ung-vien"></i> Ứng viên đăng nhập</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupModal" data-modal-title="Nhà tuyển dụng đăng tin"><i class="all-icons ntd"></i> Nhà tuyển dụng đăng tin</button>
+    </div>
+    <div class="row row-collapse align-middle mobile-menu default-bg mobile-fixed-menu">
+        <div class="col small-3 medium-3 large-3">
+            <div class="col-inner text-center">
+                <button type="button" class="btn btn-light btn-mobile-menu" data-bs-toggle="modal" data-bs-target="#mobileMenuModal" aria-label="Menu"><i class="fa fa-bars"></i></button> <span class="text-mobile-menu">Menu</span>
+            </div>
+        </div>
+        <div class="col small-6 medium-6 large-6">
+            <div class="col-inner">
+                <a href="#" class="web-logo active-menu-item" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 60px;">&nbsp;</a>
+            </div>
+        </div>
+        <div class="col small-3 medium-3 large-3">
+            <div class="col-inner text-center">
+                <button type="button" class="btn btn-light btn-mobile-menu" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mobileMenuModal" tabindex="-1" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mobileMenuModalLabel"><i class="fa fa-bars"></i> Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mobile-show-menu">
+                    <div data-id="5378" data-type="nav_menu" class="eb-sub-menu top-nav-menu main-nav-menu mobile-nav-menu">
+                        <ul class="cf">
+                            <li><a class="eb-menu-text active-menu-item" href="/">Trang chủ</a></li>
+                            <li class="has-sub-menu">
+                                <a class="eb-menu-text a-sub-menu nav-dropdown" href="/page/gioi-thieu">
+                                    Giới thiệu<span><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+                                </a>
+                                <ul class="sub-menu cf">
+                                    <li><a class="eb-menu-text" href="/page/gioi-thieu">Sàn xuất khẩu lao động</a></li>
+                                    <li><a class="eb-menu-text" href="/page/anvibi-group">Anvibi Group</a></li>
+                                    <li><a class="eb-menu-text" href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+                                    <li><a class="eb-menu-text" href="/page/dieu-khoan-su-dung">Điều khoản sử dụng</a></li>
+                                    <li><a class="eb-menu-text" href="/page/chinh-sach-bao-mat-thong-tin">Chính sách bảo mật thông tin</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-sub-menu">
+                                <a class="eb-menu-text a-sub-menu nav-dropdown">
+                                    Quốc gia xuất khẩu lao động<span><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+                                </a>
+                                <ul class="sub-menu cf">
+                                   {% countries %}
+                               </ul>
+                           </li>
+                           <li><a class="eb-menu-text" href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dành cho nhà tuyển dụng</a></li>
+                           <li><a class="eb-menu-text" href="/page/danh-cho-ung-vien">Dành cho ứng viên</a></li>
+                           <li><a class="eb-menu-text" href="/blog/thong-tin-can-biet">Thông tin cần biết</a></li>
+                           <li><a class="eb-menu-text" href="/blog/thong-tin-can-biet">Hướng dẫn hồ sơ</a></li>
+                           <li><a class="eb-menu-text" href="/blog/chuong-trinh-ho-tro-xkld">Chương trình hỗ trợ xklđ</a></li>
+                           <li><a class="eb-menu-text" href="/blog/tin-tuc">Tin tức</a></li>
+                       </ul>
+                   </div>
+               </div>
+               <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="bottom-mid-section gray2-bg">
+    <div class="row row-collapse">
+        <div class="col small-12 medium-12 large-12">
+            <div class="col-inner">
+                <ul class="top-country cf">
+                    {% countries %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+</header>
+{% include 'widgets/_modal_search.html' %}

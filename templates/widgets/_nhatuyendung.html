@@ -1,0 +1,100 @@
+{% load humanize %}
+<div class="lf f20 fullsize-if-mobile employers_view-left">
+	<div class="right-employers-menu s14 l25">
+		<div class="cf info-employers-menu">
+			<div class="lf f30">
+				{% if user.avata == None or user.avata == "" %}
+				<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/static/images/ntd-default-avt1.png');">
+					&nbsp;
+				</div>
+				{% else %}
+				<div class="postdetails-user-avt each-to-bgimg lazyload-img-done" style="background-image: url('/media/{{user.avata}}');">
+					&nbsp;
+				</div>
+				{% endif %}
+			</div>
+			<div class="lf f70">
+				<div class="bold">
+					{% if user.ho_va_ten_dem %}{{ user.ho_va_ten_dem }}{% endif %} {% if user.ten_goi %}{{ user.ten_goi }}{% endif %}
+				</div>
+				<div>ID: {{user.username}}</div>
+				<div>Số dư: <span class="ext bold greencolor ebe-currency">{{user.point|intcomma}}</span></div>
+				<div><a href="/employers/add_fund" class="btn btn-primary">Nạp tài khoản</a></div>
+			</div>
+		</div>
+		<ul id="right_employers_menu">
+			<ul class="cf">
+				<li><a href="/employers/myinfo" class="aquacolor">Cập nhật thông tin tài khoản</a></li>
+				<li><a href="/hosotuyendung/{{user.id}}">Xem trang của bạn</a></li>
+				<!-- <li><a href="#" class="">Thông báo mới</a></li> -->
+			</ul>
+			<ul class="cf">
+				<li>
+					<a href="employers/list_job" class="bold">Quản lý tin tuyển dụng</a>
+					<ul class="cf sub-menu">
+						<li>
+							<a href="/employers/add_job" class="bold greencolor"><i class="fa fa-angle-right"></i> Đăng tin</a>
+						</li>
+						<li>
+							<a href="/employers/list_job" class=""><i class="fa fa-angle-right"></i> Danh sách tin tuyển dụng</a>
+						</li>
+						<li>
+							<a href="/employers/expired_job" class=""><i class="fa fa-angle-right"></i> Tin đã hết hạn</a>
+						</li>
+						<!-- <li>
+							<a href="/employers/media_list" class=""><i class="fa fa-angle-right"></i> Đa phương tiện</a>
+						</li> -->
+					</ul>
+				</li>
+			</ul>
+			<ul class="cf">
+				<li class="current-menu-parent active">
+					<a href="/employers/candidate_list" class="bold active-menu-item">Danh sách ứng viên</a>
+					<ul class="cf sub-menu">
+						<li class="current-menu-item active">
+							<a href="/employers/candidate_list" class="bold greencolor active-menu-item active"><i class="fa fa-angle-right"></i> Xem danh sách ứng viên</a>
+						</li>
+						<li>
+							<a href="/employers/candidate_recruitment"><i class="fa fa-angle-right"></i> Ứng viên ứng tuyển</a>
+						</li>
+						<li>
+							<a href="/employers/candidate_saved"><i class="fa fa-angle-right"></i> Ứng viên đã xem</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="cf">
+				<li>
+					<a href="/" class="boldno-click noreferrer-noopener" rel="noreferrer noopener">Cài đặt</a>
+					<ul class="cf sub-menu">
+						<li>
+							<a href="/"><i class="fa fa-angle-right"></i> Hướng dẫn sử dụng</a>
+						</li>
+						<li>
+							<a href="/page/lien-he" class="no-click"><i class="fa fa-angle-right"></i> Hỗ trợ</a>
+							<ul class="cf sub-menu">
+								<li>
+									<a href="tel:0976808600" class="support_employers_phone bluecolor" rel="nofollow" target="_blank"><i class="fa fa-angle-right"></i> 0976808600</a>
+								</li>
+								<li>
+									<a href="https://zalo.me/0976808600" class="support_employers_zalo bluecolor" rel="nofollow" target="_blank"><i class="fa fa-angle-right"></i> 0976808600</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/"><i class="fa fa-angle-right"></i> Góp ý</a>
+						</li>
+						<li>
+							<a href="#" class="users-logout logoutBtn"><i class="fa fa-angle-right"></i> Đăng xuất</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</ul>
+	</div>
+	<div class="info-employers-menu version-employers-menu">
+		<div>Version 4.5.5</div>
+		<div>© 2025 all rights reserved</div>
+	</div>
+</div>
+<script type="text/javascript" src="/static/js/logout.js"></script>

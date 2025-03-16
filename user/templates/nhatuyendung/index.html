@@ -1,0 +1,338 @@
+{% extends "base.html" %} {% load thumbnail page_tags i18n l10n %} 
+{% block title %}{% if nhatuyendung.ho_va_ten_dem %}{{ nhatuyendung.ho_va_ten_dem }} {% endif %}| {% if nhatuyendung.ten_goi %}{{ nhatuyendung.ten_goi }}{% endif %} Cán bộ tuyển dụng{% endblock %} 
+{% block description %}{% if nhatuyendung.ho_va_ten_dem %}{{ nhatuyendung.ho_va_ten_dem }} {% endif %}| {% if nhatuyendung.ten_goi %}{{ nhatuyendung.ten_goi }}{% endif %} Cán bộ tuyển dụng{% endblock %} 
+{% block canonical %}
+<link href="{% setting "SITE_URL" %}/hosotuyendung/{{nhatuyendung.id}}" rel="canonical">{% endblock %} {% block content %}
+<main id="main">
+	<div id="breadcrumb-top1">
+		<div class="thread-details-tohome">
+			<div class="w90">
+				<ul class="cf">
+					<li>
+						<a href="/" class="breadcrumb-home"><i class="fa fa-home"></i> <span>Trang chủ</span></a>
+					</li>
+					<li>
+						<span> {% if nhatuyendung.ho_va_ten_dem %}{{ nhatuyendung.ho_va_ten_dem }} {% if nhatuyendung.ten_goi %}{{ nhatuyendung.ten_goi }}{% endif %}{% endif %}</span>
+					</li>
+					<li>
+						<span>Cán bộ tuyển dụng</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="w90-xoa employers-details-top s14">
+		<div class="row row-small">
+			<div class="col small-12 medium-6 large-6">
+				<div class="col-inner">
+					<div class="row">
+						<div class="col small-12 medium-6 large-6">
+							<div class="col-inner">
+								<div class="employers-details-avt">
+									{% if nhatuyendung.avata == None or nhatuyendung.avata == "" %}
+									<div
+									class="each-to-bgimg lazyload-img-done"
+									style="background-image: url('/static/images/250117104859-avatar.png.webp');"
+									>
+									&nbsp;
+								</div>
+								{% else %}
+								<div
+								class="each-to-bgimg lazyload-img-done"
+								style="background-image: url('/media/{{nhatuyendung.avata}}');"
+								>
+								&nbsp;
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="col small-12 medium-6 large-6">
+					<div class="col-inner">
+						<div class="s16 each-to-edit-link">
+							Nhà tuyển dụng
+							{% if request.user.is_authenticated and request.user == nhatuyendung %}
+							<a href="/employers/myinfo" rel="nofollow" class="users-edit-link rf">Chỉnh sửa</a>
+							{% endif %}
+						</div>
+						<p class="big bold">
+							{% if nhatuyendung.ho_va_ten_dem %}{{ nhatuyendung.ho_va_ten_dem }} {% if nhatuyendung.ten_goi %}{{ nhatuyendung.ten_goi }}{% endif %}{% endif %}
+						</p>
+						<ul id="oi_ntd_contact" class="show-if-logged2">
+							<li class="postdetails-user-icons postdetails-user-phone">
+								<a href="tel:{{nhatuyendung.phone}}" rel="nofollow">{{nhatuyendung.phone}}</a>
+							</li>
+							<li class="postdetails-user-icons postdetails-user-zalo">
+								{% if nhatuyendung.zalo == None or nhatuyendung.zalo == "" %}
+								<a target="_blank" rel="nofollow">********</a>
+								{% else %}
+								<a href="https://zalo.me/{{nhatuyendung.zalo}}" target="_blank" rel="nofollow">{{nhatuyendung.zalo}}</a>
+								{% endif %}
+							</li>
+							<li class="postdetails-user-icons postdetails-user-fb">
+								{% if nhatuyendung.facebook %}
+								<a href="{{ nhatuyendung.facebook }}" target="_blank" rel="nofollow">Xem trang cá nhân</a>
+								{% else %}
+								<a target="_blank" rel="nofollow">********</a>
+								{% endif %}
+
+							</li>
+						</ul>
+
+						<div class="bottom-menu-space10">
+							<button type="button" onclick="openTuVanFormNTD();" class="btn btn-success post-details-btn">
+								Tư vấn giúp tôi
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="left-menu-space-xoa">
+				<div class="s15 l25">
+					{% if nhatuyendung.tu_van %}
+					{{nhatuyendung.tu_van|safe}}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col small-12 medium-6 large-6">
+		<div class="col-inner">
+			<p class="bold s16">Thông tin nhà tuyển dụng:</p>
+			<div class="row row-collapse">
+				<div class="col small-12 medium-12 large-12">
+					{% if nhatuyendung.anh_bia %}
+					<div class="col-inner global-company-media">
+						<div class="global-company-banner">
+							<div
+							class="each-to-bgimg lazyload-img-done ty-le-h312_820 ty-le-global"
+							style="background-image: url('/media/{{nhatuyendung.anh_bia}}');"
+							>
+							&nbsp;
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Giới tính
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.gioi_tinh %}
+				<div class="col-inner parent-hide-if-empty loaded-to-taxonomy">{{nhatuyendung.gioi_tinh}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Năm sinh
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.nam_sinh %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.nam_sinh}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Sinh sống tại
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.noi_lam_viec %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.noi_lam_viec}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Nơi làm việc
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9 bold">
+				{% if nhatuyendung.noi_lam_viec %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.noi_lam_viec}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Tên viết tắt
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9 bold">
+				{% if nhatuyendung.ten_viet_tat %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.ten_viet_tat}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Địa chỉ
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.dia_chi %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.dia_chi}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Chức vụ
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.chuc_vu %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.chuc_vu}}</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row row-collapse post-details-line row-hide-if-empty">
+			<div class="col small-5 medium-3 large-3">
+				<div class="col-inner">
+					Kinh nghiệm
+				</div>
+			</div>
+			<div class="col small-7 medium-9 large-9">
+				{% if nhatuyendung.kinh_nghiem %}
+				<div class="col-inner parent-hide-if-empty">{{nhatuyendung.kinh_nghiem}}</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<br />
+<div class="row row-small">
+	<div class="col small-12 medium-12 large-12">
+		<div class="col-inner">
+			{% if nhatuyendung.ghi_chu %}
+			<p class="title-company_content-xoa bold s18">Giới thiệu chi tiết</p>
+			{{nhatuyendung.ghi_chu|safe}}
+			{% endif %}
+		</div>
+	</div>
+</div>
+<div class="home-h1-title text-center">Xem đơn hàng</div>
+<div id="donhang_cung_ntd" class="row row-small row-5 row-medium-4 row-small-6 row-small">
+	{% for work in works %}
+	<div class="hide-if-gia-zero col">
+		<div {% if work.is_hot %} data-order="1" {% else %} data-order="0" {% endif %} class="products-list-padding cf">
+			<div class="products-list-left fullsize-if-mobile global-a-posi">
+				<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+					&nbsp;
+				</a>
+				<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" style="background-image: url('/media/{{work.image}}');">
+					&nbsp;
+				</div>
+				<div class="products-list-flag">
+					<div class="each-to-country-flag has-flag actived-flag" style="background-image: url('/media/{{work.country__image}}');">
+						<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
+					</div>
+				</div>
+			</div>
+			<div class="products-list-right fullsize-if-mobile">
+				<div class="products-list-thunhap">
+					<span class="check-currency-format">{{work.luong_co_ban}}</span>
+					<span class="loaded-to-taxonomy">{{work.luong_co_ban_menh_gia}}</span>/tháng
+				</div>
+				<div class="products-list-yeucau">
+					{% for gioi_tinh in work.gioi_tinh %}
+					<span class="loaded-to-taxonomy">{{ gioi_tinh }}{% if not forloop.last %}, {% endif %}</span>
+					{% endfor %}
+					({{work.nam_sinh}} - {{work.ket_thuc_nam_sinh}})
+				</div>
+				<div class="products-list-ngaythituyen">
+					Tuyển:
+					{{ work.ngay_thi_tuyen|date:'d/m/Y'|default:"Liên tục" }}
+				</div>
+				<h3 class="products-list-title">
+					<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
+						{{work.name}}
+					</a>
+				</h3>
+				<div class="products-list-user cf">
+					<div class="lf f20 fullsize-if-mobile">
+						{% if work.user__avata == None or work.user__avata == "" %}
+						<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" style="background-image: url('/static/images/ntd-default-avt1.png');">
+							&nbsp;
+						</div>
+						{% else %}
+						<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" style="background-image: url('/media/{{work.user__avata}}');">
+							&nbsp;
+						</div>
+						{% endif %}
+					</div>
+					<div class="lf f80 fullsize-if-mobile">
+						<div class="s14 threadlist-user-name">
+							Tư vấn:
+							{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+							<a href="/hosotuyendung/{{work.user__id}}">
+								<span class="set-to-user-data">{{work.user__ho_va_ten_dem}} {{work.user__ten_goi}}</span>
+								<span class="set-to-user-data"></span>
+							</a>
+							{% endif %}
+						</div>
+						<div class="cf l20 threadlist-icons-contact">
+							<div class="lf f70 threadlist-contact-left">
+								<span class="threadlist-icons-square threadlist-phone-square">&nbsp;</span>
+								{% if work.user__ho_va_ten_dem and work.user__ten_goi %}
+								<span class="threadlist-phone-text set-to-user-data">
+									{% if work.user__phone == None or work.user__phone == "" %}
+									{% else %}
+									<a href="tel:{{work.user__phone}}" rel="nofollow">{{work.user__phone}}</a>
+									{% endif %}
+								</span>
+								{% endif %}
+							</div>
+							<div class="lf f30 threadlist-contact-right text-center">
+								<div class="set-to-user-data threadlist-icons-square threadlist-zalo-square">
+									{% if work.user__zalo == None or work.user__zalo == "" %}
+									<a target="_blank" rel="nofollow">&nbsp;</a>
+									{% else %}
+									<a href="https://zalo.me/{{work.user__zalo}}" aria-label="Zalo {{work.user__zalo}}" target="_blank"rel="nofollow">&nbsp;</a>
+									{% endif %}
+								</div>
+								<div class="set-to-user-data threadlist-icons-square threadlist-facebook-square">
+									{% if not work.user__facebook %}
+									<a target="_blank" rel="nofollow">&nbsp;</a>
+									{% else %}
+									<a href="{{ work.user__facebook }}" target="_blank" rel="nofollow">&nbsp;</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="products-list-info cf">
+					<div class="lf f70 products-list-more">
+						<span class="cur" onclick="openTuVanForm({{work.id}});">Tư vấn giúp tôi</span>
+					</div>
+					<div class="lf f30 text-center l25 s14"><i class="fa fa-eye"></i> {{work.view}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	{% if paginator != None %}{% include "pagination_nhatuyendung.html" with page=paginator %}{% endif %}
+</div>
+{% login %}
+{% tuvan %}
+</main>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/home.js"></script>
+{% endblock %}

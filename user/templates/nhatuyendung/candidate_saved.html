@@ -1,0 +1,125 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags humanize %} 
+{% block title %}Ứng viên đã xem{% endblock %} 
+{% block description %}Ứng viên đã xem{% endblock %} 
+{% block canonical %} <link
+href="{% setting "SITE_URL" %}/employers/candidate_saved" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users header-ntd top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner text-right">
+				<div data-id="5553" data-type="nav_menu" class="eb-sub-menu ntd-top-menu">
+					<ul class="cf">
+						<li><a href="/page/gioi-thieu">Giới thiệu</a></li>
+						<li><a href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dịch vụ</a></li>
+						<li><a href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+						<li><a href="/page/lien-he">Hỗ trợ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg employers_view-right">
+
+		<h1 class="home-h1-title employers-h1-title text-center">
+			Danh sách ứng viên
+		</h1>
+		<div class="employers-glbal-padding">
+			<p>
+				Chi phí xem thông tin liên hệ của ứng viên thị trường Nhật Bản là 80.000 vnđ, đối với các thị trường khác là: 20.000 vnđ.<br />
+				<span class="redcolor">Trong trường hợp bạn không liên hệ được với ứng viên, vui lòng thông báo cho chúng tôi qua zalo: 0976.808.600 để chúng tôi có thể kiểm tra và hoàn lại số dư vào tài khoản bạn.</span>
+			</p>
+			<hr />
+			{% filterNTD %}
+			<table class="user-table">
+				<thead>
+					<tr>
+						<th>Ảnh</th>
+						<th>Họ và tên</th>
+						<th>Giới tính</th>
+						<th>Năm sinh</th>
+						<th>Tỉnh/ Thành</th>
+						<th>
+							Quan tâm <br />
+							đến quốc gia
+						</th>
+						<th>
+							Quan tâm <br />
+							nghành nghề
+						</th>
+						<th width="110">
+							Thông tin <br />
+							liên hệ
+						</th>
+					</tr>
+				</thead>
+				<tbody id="emp_main_list">
+					{% for candidate in candidates %}
+					<tr>
+						<td>
+							{% if candidate.avata %}
+							<div class="each-to-avt" style="background-image: url('{{ candidate.avata.url }}');"></div>
+							{% else %}
+							<div class="each-to-avt">&nbsp;</div>
+							{% endif %}
+						</td>
+						<td>{% if candidate.ho_va_ten_dem %}{{ candidate.ho_va_ten_dem }}{% endif %} {% if candidate.ten_goi %}{{ candidate.ten_goi }}{% endif %}</td>
+						<td>{% if candidate.gioi_tinh %}{{ candidate.gioi_tinh }}{% endif %}</td>
+						<td>{% if candidate.nam_sinh %}{{ candidate.nam_sinh }}{% endif %}</td>
+						<td>{% if candidate.tinh_thanh_pho.name %}{{ candidate.tinh_thanh_pho.name }}{% endif %}</td>
+						<td>
+							{% for country in candidate.country.all %}
+							{{ country.name }}{% if not forloop.last %}, {% endif %}
+							{% endfor %}
+						</td>
+						<td>
+							{% for nganh_nghe in candidate.nganh_nghe.all %}
+							{{ nganh_nghe.name }}{% if not forloop.last %}, {% endif %}
+							{% endfor %}
+						</td>
+						<td>
+							{{ candidate.username }}
+						</td>
+					</tr>
+					{% endfor %}
+
+				</tbody>
+
+			</table>
+		</br>
+		<div class="public-part-page">
+			{% if candidates.has_previous %}
+			<a data-page="{{ candidates.previous_page_number }}" rel="nofollow" href="?page={{ candidates.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;</a>
+			{% endif %}
+
+			{% for i in candidates.paginator.page_range %}
+			{% if i >= candidates.number|add:"-5" and i <= candidates.number|add:"5" %}
+			{% if candidates.number == i %}
+			<span class="current">{{ i }}</span>
+			{% else %}
+			<a data-page="{{ i }}" rel="nofollow" href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ i }}</a>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+
+			{% if candidates.has_next %}
+			<a data-page="{{ candidates.next_page_number }}" rel="nofollow" href="?page={{ candidates.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&raquo;</a>
+			{% endif %}
+		</div>
+		<br />
+	</div>
+</div>
+{% NTD %}
+</div>
+{% endblock %} 
+{% block js %}
+<script src="/static/js/candidate_list.js"></script>
+{% endblock %} 

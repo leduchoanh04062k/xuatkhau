@@ -1,0 +1,39 @@
+{% spaceless %}
+<div class="public-part-page">
+    {% if page.has_previous %}
+        {% if page.previous_page_number > 1 %}
+        <span><a style="border:none;" href="{{path_url}}/page-{{ page.previous_page_number }}" aria-label="Previous Page"><i class="fa fa-chevron-left"></i></a></span>
+        {% else %}
+        <span><a style="border:none;" href="{{path_url}}" aria-label="Previous Page"><i class="fa fa-chevron-left"></i></a></span>
+        {% endif %}
+    {% else %}
+        <span class="disabled"><a style="border:none;" aria-label="Previous page" href="/"><i class="fa fa-chevron-left"></i></a></span>
+    {% endif %}
+
+    {% if page.number|add:'-4' > 1 %}
+        <span><a style="border:none;" href="{{path_url}}/page-{{ page.number|add:'-5' }}">&hellip;</a></span>
+    {% endif %}
+
+    {% for i in page.page_range %}
+        {% if page.number == i %}
+            <span class="current"><a href="{{path_url}}" style="color: white; border:none;">{{ i }}</a></span>
+        {% elif i > page.number|add:'-5' and i < page.number|add:'5' %}
+            {% if i > 1 %}
+            <span><a style="border:none;" href="{{path_url}}/page-{{ i }}">{{ i }}</a></span>
+            {% else %}
+            <span><a style="border:none;" href="{{path_url}}">{{ i }}</a></span>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if page.paginator.num_pages > page.number|add:'4' %}
+        <span><a style="border:none;" href="{{path_url}}/page-{{ page.number|add:'5' }}">&hellip;</a></span>
+    {% endif %}
+
+    {% if page.has_next %}
+        <span><a style="border:none;" href="{{path_url}}/page-{{ page.next_page_number }}" aria-label="Next Page"><i class="fa fa-chevron-right"></i></a></span>
+    {% else %}
+        <span class="disabled"><a style="border:none;" href="{{path_url}}"><i class="fa fa-chevron-right"></i></a></span>
+    {% endif %}
+</div>
+{% endspaceless %}

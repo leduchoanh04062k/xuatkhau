@@ -1,0 +1,50 @@
+<div class="modal fade" id="popupModalTuVan" tabindex="-1" aria-labelledby="popupModalLabelTuVan">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="popupModalLabelTuVan">Tư vấn giúp tôi</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="popup-login">
+					<div class="popup-request-contact datafrom">
+						<div class="text-center">
+							Cán bộ tuyển dụng sẽ liên hệ tư vấn giúp bạn trong thời gian sớm nhất
+						</div>
+						<form id="tuvanForm" class="form-vertical" method="post">{% csrf_token %}
+							<input type="hidden" name="work_id" value=""> 
+							<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+							<div class="row row-small">
+								<div class="col small-12 medium-2 large-2">
+									<div class="col-inner">&nbsp;</div>
+								</div>
+								<div class="col small-12 medium-8 large-8">
+									<div class="col-inner uv-update-info">
+										<div>
+											{{form.name}}
+											<div>
+												{{form.phone}}
+											</div>
+											<div class="text-center">
+												<button type="submit" class="btn btn-success bold upper f100">Gửi</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="popup-request-contact datafrom2" style="display: none;">
+						<div class="text-center">
+							<div class="big-big greencolor"><i class="fa fa-check-square-o"></i></div>
+							<div>Gửi yêu cầu tư vấn thành công</div>
+						</div>
+					</div>
+					<div class="text-center d-none">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

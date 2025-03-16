@@ -1,0 +1,116 @@
+<section class="footer-filter-search" style="background-color: #fff">
+    <div class="row row-collapse footer-note">
+        <div class="col small-12 medium-12 large-12">
+            <div class="col-inner">
+                Ứng viên lưu ý: Sàn xuất khẩu lao động .com là nền tảng kết nối thông tin, sàn không có chức năng đưa người lao động đi làm việc tại nước ngoài. Các tin tuyển dụng do nhà tuyển dụng trực tiếp đăng tải và chỉ có
+                giá trị tham khảo, ứng viên cần tìm hiểu kỹ thông tin trước khi đăng ký. Để được tư vấn, ứng viên có thể bấm nút "Tư vấn giúp tôi" hoặc liên hệ trực tiếp với nhà tuyển dụng.
+            </div>
+        </div>
+    </div>
+    <br />
+    <h2 class="text-center upper bold big">
+        Tìm đơn hàng trên Sàn xuất khẩu lao động
+    </h2>
+    <br />
+    <form action="/tim-kiem" method="get">
+        <div id="oi_search_footer" class="w90 cf">
+            <div class="lf f38 fullsize-if-mobile row-left">
+                <div class="row row-small">
+                    <div class="col small-12 medium-6 large-6">
+                        <div class="col-inner">
+                            <div class="search_footer-title">Quốc gia</div>
+                            <div class="search_footer-box">
+                                {% for item in countries %}
+                                <label> 
+                                    <input type="checkbox" name="quoc_gia" value="{{item.name}}" /> {{item.name}} 
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col small-12 medium-6 large-6">
+                        <div class="col-inner">
+                            <div class="search_footer-title">Ngành nghề</div>
+                            <div class="search_footer-box">
+                                {% for item in profess %}
+                                <label> <input type="checkbox" name="nganh_nghe" value="{{item.name}} " /> {{item.name}}  </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lf f62 fullsize-if-mobile">
+                <div class="row row-small row-right">
+                    <div class="col small-12 medium-3 large-3">
+                        <div class="col-inner">
+                            <div class="search_footer-title">Nơi thi tuyển</div>
+                            <div class="search_footer-box">
+                               {% for item in cities %}
+                               <label> <input type="checkbox" name="noi_tuyen" value="{{item.name}} " /> {{item.name}}  </label>
+                               {% endfor %}
+                               
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col small-12 medium-3 large-3">
+                    <div class="col-inner">
+                        <div class="search_footer-title">Giới tính</div>
+                        <div class="search_footer-box">
+                            {% for gender in genders %}
+                            <label> <input type="checkbox" name="gioi_tinh" value="{{gender.name}} " /> {{gender.name}}  </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col small-12 medium-3 large-3">
+                    <div class="col-inner">
+                        <div class="search_footer-title">Năm sinh</div>
+                        <div class="search_footer-box den_nam">
+
+                            {% for year in years %}
+                            <label> <input type="checkbox" name="nam_sinh" value="{{year|safe}}" /> {{year|safe}} </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col small-12 medium-3 large-3">
+                    <div class="col-inner">
+                        <div class="search_footer-title">Yêu cầu khác</div>
+                        <div class="bold">Thị lực</div>
+                        <label>
+                            <input type="checkbox" name="thi_luc" value="Tốt" />
+                            Tốt
+                        </label>
+                        <label> 
+                            <input type="checkbox" name="thi_luc" value="Nhận cận thị" /> Nhận cận thị 
+                        </label>
+                        <label> 
+                            <input type="checkbox" name="thi_luc" value="Không nhận cận thị" /> Không nhận cận thị 
+                        </label>
+                        <div class="bold">Viêm gan B</div>
+                        <label> 
+                            <input type="checkbox" name="viem_gan_b" value="Nhận VGB" /> Nhận VGB 
+                        </label>
+                        <label> 
+                            <input type="checkbox" name="viem_gan_b" value="Không nhận VGB" /> Không nhận VGB 
+                        </label>
+                        <div class="bold">Xăm hình</div>
+                        <label> 
+                            <input type="checkbox" name="xam_hinh" value="Có nhận" /> Có nhận 
+                        </label>
+                        <label> 
+                            <input type="checkbox" name="xam_hinh" value="Không nhận" /> Không nhận 
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success btn-footer-search bold upper">
+            Tìm kiếm đơn hàng
+        </button>
+    </div>
+</form>
+</section>

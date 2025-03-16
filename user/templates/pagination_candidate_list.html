@@ -1,0 +1,43 @@
+{% spaceless %}
+<div class="public-part-page">
+    {% if page.has_previous %}
+        <span>
+            <a style="border:none;" href="{{ path_url }}/page={{ page.previous_page_number }}" aria-label="Previous Page">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+        </span>
+    {% else %}
+        <span class="disabled">
+            <a style="border:none;" aria-label="Previous page">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+        </span>
+    {% endif %}
+
+    {% for i in page.paginator.page_range %}
+        {% if page.number == i %}
+            <span class="current">
+                <a href="{{ path_url }}/page={{ i }}" style="color: white; border:none;">{{ i }}</a>
+            </span>
+        {% else %}
+            <span>
+                <a style="border:none;" href="{{ path_url }}/page={{ i }}">{{ i }}</a>
+            </span>
+        {% endif %}
+    {% endfor %}
+
+    {% if page.has_next %}
+        <span>
+            <a style="border:none;" href="{{ path_url }}/page={{ page.next_page_number }}" aria-label="Next Page">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </span>
+    {% else %}
+        <span class="disabled">
+            <a style="border:none;">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </span>
+    {% endif %}
+</div>
+{% endspaceless %}

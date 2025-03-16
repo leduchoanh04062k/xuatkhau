@@ -1,0 +1,236 @@
+{% extends "myinfo.html" %} 
+{% load static page_tags i18n l10n %} 
+{% block title %}Cập nhật thông tin ứng viên{% endblock %} 
+{% block description %}Cập nhật thông tin ứng viên{% endblock %} 
+{% block canonical %} <link href="{% setting "SITE_URL" %}/employers/myinfo" rel="canonical">{% endblock %} 
+{% block content %}
+<section class="header-users header-ntd top-mid-section default-bg">
+	<div class="row row-collapse align-middle">
+		<div class="col small-12 medium-3 large-3">
+			<div class="col-inner">
+				<a href="/" class="web-logo" aria-label="Home" style="background-image: url('/static/images/logo-mua-he-large.png'); height: 92px;">&nbsp;</a>
+			</div>
+		</div>
+		<div class="col small-12 medium-9 large-9">
+			<div class="col-inner text-right">
+				<div data-id="5553" data-type="nav_menu" class="eb-sub-menu ntd-top-menu">
+					<ul class="cf">
+						<li><a href="/page/gioi-thieu">Giới thiệu</a></li>
+						<li><a href="/page/gioi-thieu-danh-cho-nha-tuyen-dung">Dịch vụ</a></li>
+						<li><a href="/page/chinh-sach-bao-mat-thong-tin">Chính sách</a></li>
+						<li><a href="/page/lien-he">Hỗ trợ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="w90 row-reverse-content cf">
+	<div class="lf f80 fullsize-if-mobile whitebg">
+		<div class="my_custom_alert" id="my_custom_alert">
+		</div>
+		<h1 class="home-h1-title employers-h1-title text-center">Cập nhật thông tin tài khoản</h1>
+		<form id="updateFormNTD" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div id="uv_edit" class="s14 candidate-details-mid">
+				<div class="employers-details-top employers-edit-top candidate-details-top">
+					<div class="row">
+						<div class="col small-12 medium-4 large-4">
+							<div class="col-inner">
+								<div class="employers-details-avt">
+									<label for="file-input-media" id="click-chose-media">
+										<i class="fa fa-edit rf bluecolor" id="click-chose-media"></i>
+										<img id="avatar-img" 
+										src="{% if user.avata and user.avata != '' %}/media/{{ user.avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}" 
+										height="168" />
+										<input type="file" id="file-input-media" name="avata" accept="image/*" style="display: none;">
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col small-12 medium-4 large-4">
+							<div class="col-inner">
+								<div class="row row-small uv_input-template">
+									<div class="col-inner form-group">
+										<label>
+											<span>Họ và tên đệm</span>
+											{{form.ho_va_ten_dem}}
+										</label>
+									</div>
+									<div class="col-inner form-group">
+										<label>
+											<span>Tên gọi</span>
+											{{form.ten_goi}}
+										</label>
+									</div>
+									<div class="col-inner form-group">
+										<label>
+											<span>Giới thiệu ngắn</span>
+											{{form.tu_van}}
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col small-12 medium-4 large-4">
+							<div class="col-inner">
+								<div class="row row-small uv_input-template">
+									<div class="col-inner form-group">
+										<label>
+											<span>Điện thoại</span>
+											{{form.phone}}
+										</label>
+									</div>
+									<div class="col-inner form-group">
+										<label>
+											<span>Số zalo</span>
+											{{form.zalo}}
+										</label>
+									</div>
+									<div class="col-inner form-group">
+										<label>
+											<span>Trang facebook cá nhân</span>
+											{{form.facebook}}
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="row l35">
+					<div class="col small-12 medium-12 large-12">
+						<div class="col-inner">
+							<div class="row row-small uv_input-template">
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Giới tính
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.gioi_tinh}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Năm sinh
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.nam_sinh}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Sinh sống tại
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.sinh_song_tai}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Nơi làm việc
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.noi_lam_viec}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Tên viết tắt
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.ten_viet_tat}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Địa chỉ
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.dia_chi}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Chức vụ
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.chuc_vu}}
+									</div>
+								</div>
+								<div class="col small-12 medium-3 large-3">
+									<div class="col-inner col-inner-label bold">
+										Kinh nghiệm
+									</div>
+								</div>
+								<div class="col small-12 medium-9 large-9">
+									<div class="col-inner">
+										{{form.kinh_nghiem}}
+									</div>
+								</div>
+								<div class="col small-12 medium-12 large-12">
+									<div class="col-inner col-inner-label bold">
+										Ảnh bìa
+									</div>
+								</div>
+								<div class="col small-12 medium-12 large-12">
+									<div class="col-inner">
+										<input type="file" name="anh_bia" id="anhBiaInput" class="form-control" accept="image/*" />
+									</div>
+								</div>
+								<div class="col small-12 medium-12 large-12">
+									<div class="col-inner">
+										<div id="previewContainer" style="height: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+											{% if user.anh_bia == None or user.anh_bia == "" %}
+											<img id="previewImage" src="" alt="Ảnh bìa" style="max-width: 100%; max-height: 100%;display: none;">
+											{% else %}
+											<img id="previewImage" src="/media/{{user.anh_bia}}" alt="Ảnh bìa" style="max-width: 100%; max-height: 100%">
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								<div class="col small-12 medium-12 large-12">
+									<div class="col-inner col-inner-label bold">
+										Giới thiệu về công ty
+									</div>
+								</div>
+								<div class="col small-12 medium-12 large-12">
+									<div class="col-inner">
+										{{form.ghi_chu}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-small">
+					<div class="col small-12 medium-12 large-12">
+						<div class="col-inner text-center">
+							<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Cập nhật</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% NTD %}
+</div>
+{% endblock %} 
+{% block js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+<script type="text/javascript" src="/static/js/updateNTD.js"></script>
+{% endblock %}

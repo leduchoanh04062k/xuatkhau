@@ -1,0 +1,32 @@
+<ul class="right-new-uv">
+	{% for uv in ungvien %}
+	{% if uv.nam_sinh and uv.nam_sinh != "0" %}
+	<li class="cf">
+		<div class="lf f25">
+			<div class="new-uv-avt">
+				{% if uv.avata == None or uv.avata == "" %}
+				<div class="each-to-bgimg ty-le-h100 ty-le-global lazyload-img-done" style="background-image: url('/static/images/250117104859-avatar.png.webp');">
+					&nbsp;
+				</div>
+				{% else %}
+				<div class="each-to-bgimg ty-le-h100 ty-le-global lazyload-img-done" style="background-image: url('/media/{{uv.avata}}');">
+					&nbsp;
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="lf f75">
+			<div class="new-uv-name medium16">{% if uv.ho_va_ten_dem %}{{ uv.ho_va_ten_dem }}{% endif %} {% if uv.ten_goi %}{{ uv.ten_goi }}{% endif %}</div>
+			<div class="new-uv-province"><span>{{uv.nam_sinh}}</span> {% if uv.tinh_thanh_pho__name %}- <span class="loaded-to-taxonomy">{{uv.tinh_thanh_pho__name}}</span> {% endif %}</div>
+			<div><a href="/hosoungvien/{{uv.id}}">Thông tin chi tiết</a></div>
+		</div>
+	</li>
+	{% endif %}
+	{% endfor %}
+</ul>
+{% if user.role == 'employer' %}
+<div class="text-center"><a href="/employers/candidate_list">Xem thêm ứng viên</a></div>
+{% elif user.role == 'applicant' %}
+{% else %}
+<div class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#popupModal">Xem thêm ứng viên</a></div>
+{% endif %}

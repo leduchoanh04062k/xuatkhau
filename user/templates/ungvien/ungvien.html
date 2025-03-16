@@ -1,0 +1,417 @@
+{% extends "base.html" %} 
+{% load thumbnail page_tags humanize %} 
+{% block title %}{% if uv.ho_va_ten_dem %}{{uv.ho_va_ten_dem}} {% if uv.ten_goi %}{{uv.ten_goi}} | {% endif %}{% endif %} Hồ sơ ứng viên{% endblock %} 
+{% block description %}{{uv.ho_va_ten_dem}} | Hồ sơ ứng viên{% endblock %} 
+{% block canonical %}
+<link href="{% setting "SITE_URL" %}/hosoungvien/{{uv.id}}" rel="canonical">{% endblock %} 
+{% block content %}
+<main id="main">
+    <div id="breadcrumb-top1">
+        <div class="thread-details-tohome">
+            <div class="w90">
+                <ul class="cf">
+                    <li>
+                        <a href="/" title="Trang chủ" class="breadcrumb-home">
+                            <i class="fa fa-home"></i>
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span>{% if uv.ho_va_ten_dem %}{{uv.ho_va_ten_dem}} {% if uv.ten_goi %}{{uv.ten_goi}} | {% endif %}{% endif %}Hồ sơ ứng viên</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="s14 w90">
+        <h1 class="home-h1-title employers-h1-title text-center each-to-edit-link">Hồ sơ ứng viên</h1>
+        <div id="uv_profile">
+            <div class="employers-details-top employers-edit-top candidate-details-top">
+                <div class="row">
+                    <div class="col small-12 medium-3 large-3">
+                        <div class="col-inner">
+                            <div class="employers-details-avt">
+                                {% if uv.avata == None or uv.avata == "" %}
+                                <div class="each-to-bgimg lazyload-img-done" style="background-image: url('/static/images/250117104859-avatar.png.webp');">
+                                    &nbsp;
+                                </div>
+                                {% else %}
+                                <div class="each-to-bgimg lazyload-img-done" style="background-image: url('/media/{{uv.avata}}');">
+                                    &nbsp;
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col small-12 medium-9 large-9">
+                        <div class="col-inner">
+                            <h2 class="users-display_name">
+                               {% if uv.ho_va_ten_dem %}{{uv.ho_va_ten_dem}} {% if uv.ten_goi %}{{uv.ten_goi}}{% endif %}{% endif %}
+                            </h2>
+                            <br />
+                            <div class="row row-small">
+                                <div class="col small-12 medium-5 large-5">
+                                    <div class="col-inner uv-padding-profile">
+                                        <div class="row row-collapse">
+                                            <div class="col small-12 medium-4 large-4">
+                                                <div class="col-inner bold">
+                                                    Giới tính
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8">
+                                                <div class="col-inner">
+                                                    <div class="loaded-to-taxonomy">{% if uv.gioi_tinh %}{{uv.gioi_tinh}}{% endif %}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                                <div class="col-inner bold">
+                                                    Năm sinh
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                                <div class="col-inner">
+                                                    {% if uv.nam_sinh %}{{uv.nam_sinh}}{% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4">
+                                                <div class="col-inner bold">
+                                                    Ghi chú
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8">
+                                                <div class="col-inner">
+                                                    {% if uv.ghi_chu %} {{uv.ghi_chu|safe}} {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                                <div class="col-inner bold">
+                                                    Địa chỉ
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                                <div class="col-inner">
+                                                    {% if uv.dia_chi %} {{uv.dia_chi}} {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="col small-12 medium-7 large-7">
+                                    <div class="col-inner uv-padding-profile">
+                                        <div class="row row-collapse">
+                                            <div class="col small-12 medium-4 large-4">
+                                                <div class="col-inner bold">
+                                                    Điện thoại
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8">
+                                                <div class="col-inner" id="phone_{{ uv.id }}">
+                                                    ********
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                                <div class="col-inner bold">
+                                                    Số Zalo
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                                <div class="col-inner" id="zalo_{{ uv.id }}">
+                                                    ********
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4">
+                                                <div class="col-inner bold">
+                                                    Facebook
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8">
+                                                <div class="col-inner" id="facebook_{{ uv.id }}">
+                                                    {% if uv.facebook %} {{uv.facebook}} {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                                <div class="col-inner bold">
+                                                    Tỉnh/ Thành phố
+                                                </div>
+                                            </div>
+                                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                                <div class="col-inner">
+                                                    {% if uv.tinh_thanh_pho.name %} {{uv.tinh_thanh_pho.name}} {% endif %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                        {% if request.user.is_authenticated and request.user.role == "employer" %}
+                                        <div>
+                                            <button type="button" onclick="return before_view_uv_info();" class="btn btn-danger">Xem thông tin liên hệ</button>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row uv-padding-profile">
+                <div class="col small-12 medium-6 large-6">
+                    <div class="col-inner">
+                        <h3 class="cv-block-title">Sức khỏe</h3>
+                        <div class="row row-collapse">
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Chiều cao (cm)
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.chieu_cao %} {{uv.chieu_cao}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Cân nặng (kg)
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.can_nang %} {{uv.can_nang}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Thị lực (1 - 10)
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.thi_luc %} {{uv.thi_luc}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Hình xăm
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.hinh_xam %} {{uv.hinh_xam}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Viêm gan B
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.viem_gan_b %} {{uv.viem_gan_b}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Hút thuốc
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.hut_thuoc %} {{uv.hut_thuoc}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Uống rượu
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.uong_ruou %} {{uv.uong_ruou}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Bệnh di truyền
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.benh_di_truyen %} {{uv.benh_di_truyen}} {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <h3 class="cv-block-title">Học vấn</h3>
+                        <div class="row row-collapse">
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Tốt nghiệp
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    <div class="loaded-to-taxonomy">
+                                        {% if uv.tot_nghiep %} {{uv.tot_nghiep}} {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Ngoại ngữ
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    <div class="loaded-to-taxonomy">
+                                        {% if uv.ngoai_ngu %} {{uv.ngoai_ngu}} {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Bằng nghề
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.bang_nghe %} {{uv.bang_nghe}} {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <h3 class="cv-block-title">Kinh nghiệm</h3>
+                        <div class="row row-collapse">
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Tay nghề
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.tay_nghe %} {{uv.tay_nghe}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Đã đi xklđ
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.da_di_xkld %} {{uv.da_di_xkld}} {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <div class="col small-12 medium-6 large-6">
+                    <div class="col-inner">
+                        <h3 class="cv-block-title">Tự giới thiệu</h3>
+                        <div class="row row-collapse">
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Tính cách
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.tinh_cach %} {{uv.tinh_cach}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Sở thích
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    {% if uv.so_thich %} {{uv.so_thich}} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Yêu cầu khác
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    {% if uv.yeu_cau_khac %} {{uv.yeu_cau_khac}} {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <h3 class="cv-block-title">Quan tâm đến</h3>
+                        <div class="row row-collapse">
+                            <div class="col small-12 medium-4 large-4">
+                                <div class="col-inner bold">
+                                    Xklđ các nước
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8">
+                                <div class="col-inner">
+                                    <div class="loaded-to-taxonomy">
+                                        {% if countries.0.country__name %}
+                                        {% for item in countries %} {{item.country__name}} {% if not forloop.last %}, {% endif %} {% endfor %}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-4 large-4 uv-profile-odd">
+                                <div class="col-inner bold">
+                                    Ngành nghề
+                                </div>
+                            </div>
+                            <div class="col small-12 medium-8 large-8 uv-profile-odd">
+                                <div class="col-inner">
+                                    <div class="loaded-to-taxonomy">
+                                        {% if profess.0.nganh_nghe__name %}
+                                        {% for item in profess %} {{item.nganh_nghe__name}} {% if not forloop.last %}, {% endif %} {% endfor %}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% login %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <div class="modal fade" id="viewUVInfoModal" tabindex="-1" aria-labelledby="viewUVInfoModalLabel" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewUVInfoModalLabel">Xem thông tin liên hệ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if cost %}
+                    <p>
+                        Chi phí xem thông tin liên hệ của ứng viên thị trường Nhật Bản là 80.000 vnđ, đối với các thị trường khác là: 20.000 vnđ. &nbsp;
+                        {% if is_japan %}
+                        <span class="bold redcolor ebe-currency">80,000</span>
+                        {% else %}
+                        <span class="bold redcolor ebe-currency">20,000</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                    {% if user.point >= cost %}
+                    <button type="button" onclick="return action_view_uv_info({{uv.id}});" class="btn btn-primary">Tôi đồng ý!</button>
+                    {% else %}
+                    <a href="/employers/add_fund" class="btn btn-warning">Nạp thêm điểm</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/ungvien.js"></script>
+{% endblock %}
