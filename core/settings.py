@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g^ljb7lqkhrj6ew)$%9+*6z-86(!#uedo(0xm5!^rf(#x#@*ieiekmdoj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
@@ -162,6 +162,7 @@ PARLER_LANGUAGES = {
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 #STATIC_URL = 'https://vietnamvisa-m4htahr3pzs8oxbgi8.stackpathdns.com/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
