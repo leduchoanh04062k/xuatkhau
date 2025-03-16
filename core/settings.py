@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent  # Trỏ đến thư mục g�
 SECRET_KEY = 'g^ljb7lqkhrj6ew)$%9+*6z-86(!#uedo(0xm5!^rf(#x#@*ieiekmdoj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # COMPRESS_ENABLED = True
 # COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 # COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
