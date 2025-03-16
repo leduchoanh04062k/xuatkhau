@@ -7,7 +7,6 @@
   <title>{% block title %}{% endblock %}</title>
   <meta name="description" content="{% block description %}{% endblock %}">
   {% block canonical %}{% endblock %}
-  {% compress css %}
   <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
   <link href="/static/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/static/css/home.css" rel="stylesheet" />
@@ -22,17 +21,14 @@
     }
   </style>
   {% block css %}{% endblock %}
-  {% endcompress %}
 </head>
 <body class="candidates-myinfo is-guest document-ready">
   {% block content %}
   {% endblock %}
   {% block breadcrumb %}{% endblock %}
-  {% compress js %}
   <script type="text/javascript" src="/static/js/vendors/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/vendors/bootstrap.min.js"></script>
   <script type="text/javascript" src="/static/js/vendors/select2.min.js"></script>
   {% block js %}{% endblock %}
-  {% endcompress %}
 </body>
 </html>
