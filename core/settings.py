@@ -188,7 +188,7 @@ CKEDITOR_CONFIGS = {
 MEDIA_URL = '/media/'
 
 #MEDIA_ROOT = '/Users/tienbui/python/visa/media/'
-MEDIA_ROOT = "D:\\python\\laodong\\media\\"
+MEDIA_ROOT = "D:\\python\\xuatkhau\\media\\"
 
 
 
