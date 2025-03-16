@@ -23,6 +23,9 @@ SECRET_KEY = 'g^ljb7lqkhrj6ew)$%9+*6z-86(!#uedo(0xm5!^rf(#x#@*ieiekmdoj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+#COMPRESS_ENABLED = True
+# COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+# COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
 ALLOWED_HOSTS = ['xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
@@ -162,6 +165,14 @@ STATIC_URL = '/static/'
 #STATIC_URL = 'https://vietnamvisa-m4htahr3pzs8oxbgi8.stackpathdns.com/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     # other finders..
+#     'compressor.finders.CompressorFinder',
+# )
+
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
