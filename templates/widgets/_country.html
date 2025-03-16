@@ -2,7 +2,7 @@
 {% for country in countries %}
 <li class="parent-menu">
 	<a href="/{{country.country__slug}}" class="eb-menu-text"> 
-		<img src="/static/media/{{country.country__image}}" width="29" height="19" alt="{{country.country__name}}" /> {{country.country__name}} 
+		<img src="/media/{{country.country__image}}" width="29" height="19" alt="{{country.country__name}}" /> {{country.country__name}} 
 		<span class="taxonomy-count">{{country.count}}</span> 
 	</a>
 </li>

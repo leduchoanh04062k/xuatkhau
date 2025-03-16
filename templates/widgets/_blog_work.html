@@ -5,11 +5,11 @@
 		<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
 			&nbsp;
 		</a>
-		<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" {% if work.image %} style="background-image: url('/static/media/{{work.image}}');"{% endif %}>
+		<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" {% if work.image %} style="background-image: url('/media/{{work.image}}');"{% endif %}>
 			&nbsp;
 		</div>
 		<div class="products-list-flag">
-			<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('/static/media/{{work.country__image}}');"{% endif %}>
+			<div class="each-to-country-flag has-flag actived-flag" {% if work.country__image %} style="background-image: url('/media/{{work.country__image}}');"{% endif %}>
 				<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 		<div class="products-list-user cf">
 			<div class="lf f20 fullsize-if-mobile">
 				<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" 
-				style="background-image: url('{% if work.user__avata %}/static/media/{{ work.user__avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}');">
+				style="background-image: url('{% if work.user__avata %}/media/{{ work.user__avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}');">
 				&nbsp;
 			</div>
 		</div>

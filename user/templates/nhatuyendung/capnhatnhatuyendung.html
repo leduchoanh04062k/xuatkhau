@@ -40,7 +40,7 @@
 									<label for="file-input-media" id="click-chose-media">
 										<i class="fa fa-edit rf bluecolor" id="click-chose-media"></i>
 										<img id="avatar-img" 
-										src="{% if user.avata and user.avata != '' %}/static/media/{{ user.avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}" 
+										src="{% if user.avata and user.avata != '' %}/media/{{ user.avata }}{% else %}/static/images/ntd-default-avt1.png{% endif %}" 
 										height="168" />
 										<input type="file" id="file-input-media" name="avata" accept="image/*" style="display: none;">
 									</label>
@@ -198,7 +198,7 @@
 											{% if user.anh_bia == None or user.anh_bia == "" %}
 											<img id="previewImage" src="" alt="Ảnh bìa" style="max-width: 100%; max-height: 100%;display: none;">
 											{% else %}
-											<img id="previewImage" src="/static/media/{{user.anh_bia}}" alt="Ảnh bìa" style="max-width: 100%; max-height: 100%">
+											<img id="previewImage" src="/media/{{user.anh_bia}}" alt="Ảnh bìa" style="max-width: 100%; max-height: 100%">
 											{% endif %}
 										</div>
 									</div>
