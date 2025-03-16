@@ -27,7 +27,7 @@ DEBUG = True
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://xuatkhaulaodong.onrender.com', 'localhost', '127.0.0.1']
 SITE_ID = 1
 SITE_URL = "http://localhost:8000"
 DOMAIN_NAME = "localhost:8000"
@@ -100,14 +100,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'laodong',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'PASSWORD': 'qCwvQLnYBGrjVrCRGvuCOmmqzfARDflX',
+        'HOST': 'turntable.proxy.rlwy.net',
+        'PORT': '43733',
     }
 }
 
@@ -195,8 +196,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # GDAL_LIBRARY_PATH = r'D:\miniconda3\Library\bin\gdal.dll'
 # GEOS_LIBRARY_PATH=r'D:\miniconda3\Library\bin\geos_c.dll'
 
-GDAL_LIBRARY_PATH =  "D:\\Python\\python lib\\Lib\\site-packages\\osgeo\\gdal304.dll"
-GEOS_LIBRARY_PATH =  "D:\\Python\\python lib\\Lib\\site-packages\\osgeo\\geos_c.dll"
+# GDAL_LIBRARY_PATH =  "D:\\Python\\python lib\\Lib\\site-packages\\osgeo\\gdal304.dll"
+# GEOS_LIBRARY_PATH =  "D:\\Python\\python lib\\Lib\\site-packages\\osgeo\\geos_c.dll"
 
 LOCATION_FIELD = {
     'map.provider': 'openstreetmap',
