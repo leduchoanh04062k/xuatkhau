@@ -1,11 +1,8 @@
-{% load page_tags thumbnail %}
+{% load page_tags %}
 {% for country in countries %}
 <li class="parent-menu">
 	<a href="/{{country.country__slug}}" class="eb-menu-text"> 
-		{% thumbnail country.country__image "29x19" crop="center" as im %}
-		<img src="{{ im.url }}" width="29" height="19" alt="{{country.country__name}}" />
-		{% endthumbnail %} 
-		{{country.country__name}} 
+		<img src="{{ country.country__image.url }}" width="29" height="19" alt="{{country.country__name}}" /> {{country.country__name}} 
 		<span class="taxonomy-count">{{country.count}}</span> 
 	</a>
 </li>
