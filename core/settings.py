@@ -162,7 +162,7 @@ PARLER_LANGUAGES = {
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR , "static"]
 #STATIC_URL = 'https://vietnamvisa-m4htahr3pzs8oxbgi8.stackpathdns.com/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
