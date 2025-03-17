@@ -213,7 +213,14 @@
 								{% endif %}
 								<div class="row row-collapse post-details-line row-currency-taxonomy">
 									<div class="col small-5 medium-5 large-5"><div class="col-inner">Phí xuất cảnh</div></div>
-									<div class="col small-7 medium-7 large-7"><div class="col-inner row-contact-if-empty">Liên hệ</div></div>
+									<div class="col small-7 medium-7 large-7">
+										{% if work.phi_xuat_canh and work.phi_xuat_canh_menh_gia %}
+										<span class="convert-currency-format">{{work.phi_xuat_canh}}</span> 
+										<span class="waiting-currency-format loaded-to-taxonomy">{{work.phi_xuat_canh_menh_gia}}</span>/tháng
+										{% else %}
+										<span class="convert-currency-format">Liên hệ</span> 
+										{% endif %}
+									</div>
 								</div>
 								{% if work.chuong_trinh_ho_tro %}
 								<div class="row row-collapse post-details-line row-hide-if-empty">
