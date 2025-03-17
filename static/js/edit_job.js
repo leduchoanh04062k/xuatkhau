@@ -152,22 +152,22 @@ $("#EditForm").on("submit", function (e) {
         contentType: false,
         success: function (response) {
             if (response.success) {
-                showMessage("Sửa tin thành công!", "success", 2000);
+                showMessage("Sửa tin thành công!", "success", 1000);
                 setTimeout(function () {
                     window.location.href = response.redirect_url;
-                }, 2000); 
+                }, 1000); 
             } else {
-                showMessage(response.message, "danger", 3000);
+                showMessage(response.message, "danger", 2000);
                 
             }
         },
         error: function () {
-            showMessage("Có lỗi xảy ra. Vui lòng thử lại!", "danger", 3000);
+            showMessage("Có lỗi xảy ra. Vui lòng thử lại!", "danger", 2000);
         },
     });
 });
 
-function showMessage(message, type, duration = 3000) {
+function showMessage(message, type, duration = 1000) {
     let bgColor = type === "success" ? "greenbg" : type === "info" ? "bluebg" : "redbg";
 
     $("#my_custom_alert").html(`<div class="${bgColor}" onclick="$(this).fadeOut();">${message}</div>`).fadeIn();
