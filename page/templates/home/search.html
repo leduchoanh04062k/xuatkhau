@@ -124,7 +124,25 @@
 		</div>
 	</div>
 	{% endfor %}
-	{% if data.paginator != None and data.paginator.num_pages > 1 %}{% include "pagination-search.html" with page=data %}{% endif %}
+	<div class="public-part-page">
+		{% if data.has_previous %}
+		<a data-page="{{ data.previous_page_number }}" rel="nofollow" href="tim-kiem?page={{ data.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;</a>
+		{% endif %}
+
+		{% for i in data.paginator.page_range %}
+		{% if i >= data.number|add:"-5" and i <= data.number|add:"5" %}
+		{% if data.number == i %}
+		<span class="current">{{ i }}</span>
+		{% else %}
+		<a data-page="{{ i }}" rel="nofollow" href="tim-kiem?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ i }}</a>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+
+		{% if data.has_next %}
+		<a data-page="{{ data.next_page_number }}" rel="nofollow" href="tim-kiem?page={{ candidates.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&raquo;</a>
+		{% endif %}
+	</div>
 </div>
 {% else %}
 <div class="row">
