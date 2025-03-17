@@ -39,7 +39,7 @@
 								{% else %}
 								<div
 								class="each-to-bgimg lazyload-img-done"
-								style="background-image: url('/media/{{nhatuyendung.avata}}');"
+								style="background-image: url('https://res.cloudinary.com/dohcwmo3f/image/upload/v1/{{nhatuyendung.avata}}');"
 								>
 								&nbsp;
 							</div>
@@ -106,7 +106,7 @@
 						<div class="global-company-banner">
 							<div
 							class="each-to-bgimg lazyload-img-done ty-le-h312_820 ty-le-global"
-							style="background-image: url('/media/{{nhatuyendung.anh_bia}}');"
+							style="background-image: url('https://res.cloudinary.com/dohcwmo3f/image/upload/v1/{{nhatuyendung.anh_bia}}');"
 							>
 							&nbsp;
 						</div>
@@ -235,11 +235,11 @@
 				<a title="{{work.name}}" href="/{{work.country__slug}}/{{work.slug}}.html">
 					&nbsp;
 				</a>
-				<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" style="background-image: url('/media/{{work.image}}');">
+				<div class="products-list-avt each-to-bgimg lazyload-img-done ty-le-h100 ty-le-global" style="background-image: url('https://res.cloudinary.com/dohcwmo3f/image/upload/v1/{{work.image}}');">
 					&nbsp;
 				</div>
 				<div class="products-list-flag">
-					<div class="each-to-country-flag has-flag actived-flag" style="background-image: url('/media/{{work.country__image}}');">
+					<div class="each-to-country-flag has-flag actived-flag" style="background-image: url('https://res.cloudinary.com/dohcwmo3f/image/upload/v1/{{work.country__image}}');">
 						<a title="{{work.country__name}}" aria-label="{{work.country__name}}" href="/{{work.country__slug}}">{{work.country__name}}</a>
 					</div>
 				</div>
@@ -271,7 +271,7 @@
 							&nbsp;
 						</div>
 						{% else %}
-						<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" style="background-image: url('/media/{{work.user__avata}}');">
+						<div class="threadlist-user-avt set-to-user-avt done-to-ntd-data" style="background-image: url('https://res.cloudinary.com/dohcwmo3f/image/upload/v1/{{work.user__avata}}');">
 							&nbsp;
 						</div>
 						{% endif %}
